@@ -33,7 +33,7 @@ export const CardLink: React.FC<CardLinkProps> = ({
         </div>
       </div>
       <div className={cc(["flex flex-col flex-[1]"])}>
-        <div className={cc(["card-link-triangle"])}></div>
+        <div className={cc(["card-link-notched-corner"])}></div>
         <div className={cc(["card-link-action-icon-container"])}>
           <div className={cc(["w-[24px] h-[24px]"])}>
             {actionIcon}

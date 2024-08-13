@@ -1,6 +1,5 @@
 import cc from "classcat";
 import { ReactNode } from "react";
-import "@/styles/card-link.css";
 import { Inter } from "next/font/google";
 
 
@@ -21,8 +20,8 @@ export const CardLink: React.FC<CardLinkProps> = ({
   ...props
 }) => {
   return (
-    <div className={cc(["flex min-w-[572px] min-h-[232px] card-link", className])}>
-      <div className={cc(["card-link-main-card"])} {...props}>
+    <div className={cc(["flex min-w-[572px] min-h-[232px] card-link", className])}  {...props}>
+      <div className={cc(["card-link-main-card"])}>
         <div className={cc(["flex-col w-full h-full py-[32px] px-[32px]"])}>
           <div className={cc(["card-link-main-icon w-[80px] h-[80px]"])}>
             {mainIcon}

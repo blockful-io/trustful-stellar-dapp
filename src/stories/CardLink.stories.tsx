@@ -32,6 +32,6 @@ export const CardLinkWithContent: Story = {
     children: <div className="w-20 h-20"></div>,
     mainIcon: <BadgeIcon color="#B1EF42"/>,
     title: "Verify reputation",
-    actionIcon: <ArrowRightIcon color="#B1EF42"/>,
+    actionIcon: <ArrowRightIcon color="black"/>,
   },
 };

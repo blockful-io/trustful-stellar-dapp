@@ -1,3 +1,16 @@
+.card-link:hover .card-link-notched-corner,
+.card-link:hover .card-link-main-card,
+.card-link:hover .card-link-action-icon-container {
+  background-color: #B1EF42;
+}
+
+.card-link:hover .card-link-main-icon * {
+    stroke: black;
+}
+.card-link:hover .card-link-title {
+    color: black;
+}
+
 .card-link-main-card {
   border-radius: 0.75rem;
   flex: 6;

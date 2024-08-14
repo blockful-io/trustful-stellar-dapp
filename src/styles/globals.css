@@ -10,6 +10,11 @@
   --background-end-rgb: 0, 0, 0;
   --primary-green: #B1EF42;
   --primary-black: #161617;
+  --md-dark-gray: #212223;
+  --md-gray: #2D2E2F;
+  --md-light-gray: #303132;
+  --light-gray: #868B8B;
+  --lighter-gray: #B6BCBD;
 }
 
 body {

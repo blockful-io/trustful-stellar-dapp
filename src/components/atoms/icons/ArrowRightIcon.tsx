@@ -12,12 +12,12 @@ export const ArrowRightIcon = (props: SVGProps<SVGSVGElement>) => {
       <path
         d="M0 13L23 13"
         stroke={props.color ?? "black"}
-        stroke-width="1.5"
+        strokeWidth="1.5"
       />
       <path
         d="M12 1L24 13L12 25"
         stroke={props.color ?? "black"}
-        stroke-width="1.5"
+        strokeWidth="1.5"
       />
     </svg>
   );

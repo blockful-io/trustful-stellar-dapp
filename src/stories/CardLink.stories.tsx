@@ -2,6 +2,7 @@ import { CardLink } from "@/components/atoms/CardLink";
 import type { Meta, StoryObj } from "@storybook/react";
 import { BadgeIcon } from "@/components/atoms/icons/BadgeIcon";
 import { ArrowRightIcon } from "@/components/atoms/icons/ArrowRightIcon";
+import '@/styles/card-link.css'
 
 const meta = {
   title: "TrustfulStellar/CardLink",

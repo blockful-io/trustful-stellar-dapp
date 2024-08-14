@@ -4,7 +4,6 @@ import { HomepageBackground } from "@/components/atoms/homepage/HomepageBackgrou
 import { ArrowRightIcon } from "@/components/atoms/icons/ArrowRightIcon";
 import { BadgeIcon } from "@/components/atoms/icons/BadgeIcon";
 import { VerifyReputationIcon } from "@/components/atoms/icons/VerifyReputationIcon";
-import cc from "classcat";
 
 const HomePage = () => {
   return (

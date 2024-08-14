@@ -31,7 +31,7 @@ export const EmptyCardLink: Story = {
 export const CardLinkWithContent: Story = {
   args: {
     children: <div className="w-20 h-20"></div>,
-    mainIcon: <BadgeIcon color="#B1EF42"/>,
+    mainIcon: <BadgeIcon color="var(--primary-green)"/>,
     title: "Verify reputation",
     actionIcon: <ArrowRightIcon color="var(--primary-black)"/>,
   },

@@ -1,5 +1,6 @@
 import "@rainbow-me/rainbowkit/styles.css";
 import "@/styles/globals.css";
+import "@/styles/card-link.css";
 import "tailwindcss/tailwind.css";
 
 import {

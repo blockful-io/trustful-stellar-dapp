@@ -1,0 +1,47 @@
+.card-link:hover .card-link-notched-corner,
+.card-link:hover .card-link-main-card,
+.card-link:hover .card-link-action-icon-container {
+  background-color: #b1ef42;
+}
+
+.card-link:hover .card-link-main-icon * {
+  stroke: var(--primary-black);
+}
+.card-link:hover .card-link-title {
+  color: var(--primary-black);
+}
+
+.card-link-main-card {
+  border-radius: 0.75rem;
+  flex: 6;
+  border: 1px solid gray;
+  border-right: 0;
+  background-color: var(--primary-black);
+}
+
+.card-link-notched-corner {
+  position: relative;
+  left: -40px;
+  top: 33px;
+  width: 129%;
+  height: 57%;
+  border-top: 1px solid gray;
+  transform: rotate(40deg);
+  background-color: var(--primary-black);
+}
+
+.card-link-action-icon-container {
+  height: 100%;
+  width: 109%;
+  background-color: var(--primary-black);
+  border: 1px solid gray;
+  border-top: 0;
+  border-left: 0;
+  border-bottom-right-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+  position: relative;
+  left: -10px;
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 33px;
+}

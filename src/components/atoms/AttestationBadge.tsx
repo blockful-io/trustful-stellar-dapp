@@ -3,6 +3,7 @@ import cc from "classcat";
 import { CheckIcon } from "./icons/CheckIcon";
 import { ArrowIcon } from "./icons/ArrowIcon";
 import React from "react";
+import tailwindConfig from "tailwind.config";
 
 interface AttestationBadgeProps extends React.ComponentPropsWithoutRef<"div"> {
   title: string;
@@ -20,14 +21,18 @@ export const AttestationBadge: React.FC<AttestationBadgeProps> = ({
   const Icon = icon;
   return (
     <div
-      className="rounded-lg flex border border-[--md-light-gray] w-[278px] h-[134px] bg-[var(--md-dark-gray)]"
+      className="rounded-lg flex border border-whiteOpacity008 w-[278px] h-[134px] bg-whiteOpacity005"
       {...props}
     >
       <div className="flex flex-1 max-w-[50%] flex-col p-3 justify-between">
         <div className="flex-1 p-2 w-max">
-          <div className="w-full h-full max-h-[36px] p-2 rounded-full bg-[--md-light-gray]">
+          <div className="w-[38px] h-[38px] p-2 rounded-full bg-whiteOpacity008">
             <Icon
-              color={imported ? "var(--primary-green)" : "var(--light-gray)"}
+              color={
+                imported
+                  ? tailwindConfig.theme.extend.colors.brandGreen
+                  : tailwindConfig.theme.extend.colors.whiteOpacity05
+              }
             />
           </div>
         </div>
@@ -43,15 +48,17 @@ export const AttestationBadge: React.FC<AttestationBadgeProps> = ({
             <div className="w-[12px] mr-2">
               <CheckIcon />
             </div>
-            <span className="text-[var(--primary-green)]">IMPORTED</span>
+            <span className="text-brandGreen">IMPORTED</span>
           </div>
           <div
             className={cc([{ hidden: imported }, "flex text-xs font-medium"])}
           >
             <div className="w-3 mr-2">
-              <ArrowIcon />
+              <ArrowIcon
+                color={tailwindConfig.theme.extend.colors.whiteOpacity05}
+              />
             </div>
-            <span className="text-[var(--light-gray)]">IMPORT</span>
+            <span className="text-whiteOpacity05">IMPORT</span>
           </div>
         </div>
       </div>

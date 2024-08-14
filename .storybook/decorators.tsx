@@ -8,6 +8,7 @@ import {
 import "@rainbow-me/rainbowkit/styles.css";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { QueryClientProvider } from "@tanstack/react-query";
+import colors from 'tailwindcss/colors';
 
 import { Inter } from "next/font/google";
 
@@ -21,7 +22,7 @@ export const withWagmiProvider = (StoryFn) => (
           --font-inter: ${inter.style.fontFamily}
         }
         html {
-          font-family: var(--font-inter)
+          font-family: var(--font-inter);
         }
       `}
     </style>

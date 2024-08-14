@@ -4,10 +4,11 @@ import { HomepageBackground } from "@/components/atoms/homepage/HomepageBackgrou
 import { ArrowRightIcon } from "@/components/atoms/icons/ArrowRightIcon";
 import { BadgeIcon } from "@/components/atoms/icons/BadgeIcon";
 import { VerifyReputationIcon } from "@/components/atoms/icons/VerifyReputationIcon";
+import tailwindConfig from "tailwind.config";
 
 const HomePage = () => {
   return (
-    <div className="relative mx-auto h-full flex items-center justify-center bg-[var(--primary-black)] z-[0]">
+    <div className="relative mx-auto h-full flex items-center justify-center bg-brandBlack z-[0]">
       <HomepageBackground />
       <div className="h-[calc(100vh-72px)] w-[100vw]">
         <div className="flex h-full w-full">
@@ -24,14 +25,30 @@ const HomePage = () => {
           <div className="pr-[5%] pt-[2%] pb-[2%] flex flex-col h-full w-full justify-around">
             <CardLink
               title="Issue Badge"
-              mainIcon={<BadgeIcon color="var(--primary-green)" />}
-              actionIcon={<ArrowRightIcon color="var(--primary-black)" />}
+              mainIcon={
+                <BadgeIcon
+                  color={tailwindConfig.theme.extend.colors.brandGreen}
+                />
+              }
+              actionIcon={
+                <ArrowRightIcon
+                  color={tailwindConfig.theme.extend.colors.brandBlack}
+                />
+              }
               onClick={() => console.log("issue badge")}
             />
             <CardLink
               title="Verify Reputation"
-              mainIcon={<VerifyReputationIcon color="var(--primary-green)" />}
-              actionIcon={<ArrowRightIcon color="var(--primary-black)" />}
+              mainIcon={
+                <VerifyReputationIcon
+                  color={tailwindConfig.theme.extend.colors.brandGreen}
+                />
+              }
+              actionIcon={
+                <ArrowRightIcon
+                  color={tailwindConfig.theme.extend.colors.brandBlack}
+                />
+              }
               onClick={() => console.log("verify reputation")}
             />
           </div>

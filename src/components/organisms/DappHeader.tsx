@@ -4,7 +4,7 @@ import { ConnectWallet } from "./ConnectWallet";
 
 export const DappHeader = () => {
   return (
-    <div className="w-screen flex items-center mx-auto p-6 max-w-[100vw] h-[72px] justify-between border-t-none border border-r-none border-l-none border-whiteOpacity008 bg-[var(--primary-black)]">
+    <div className="w-screen flex items-center mx-auto p-6 max-w-[100vw] h-[72px] justify-between border-t-none border border-r-none border-l-none border-whiteOpacity008 bg-brandBlack">
       <div className="flex items-center gap-6">
         <Link href="/">
           <Image

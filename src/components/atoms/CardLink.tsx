@@ -1,9 +1,5 @@
 import cc from "classcat";
 import { ReactNode } from "react";
-import { Inter } from "next/font/google";
-
-
-const inter = Inter({ subsets: ["latin"], weight: '400' });
 
 interface CardLinkProps extends React.ComponentPropsWithoutRef<"div"> {
   mainIcon: ReactNode;
@@ -20,23 +16,22 @@ export const CardLink: React.FC<CardLinkProps> = ({
   ...props
 }) => {
   return (
-    <div className={cc(["flex min-w-[572px] min-h-[232px] card-link", className])}  {...props}>
-      <div className={cc(["card-link-main-card"])}>
+    <div
+      className={cc(["flex min-w-[572px] min-h-[232px] card-link", className])}
+      {...props}
+    >
+      <div className="card-link-main-card">
         <div className="flex-col w-full h-full py-8 px-8">
-          <div className="card-link-main-icon w-20 h-20">
-            {mainIcon}
-          </div>
-          <div className={cc(["w-max-content h-[26px] mt-[62px]"])}>
-            <span className={cc([inter.className, "text-2xl card-link-title"])}>{title}</span>
+          <div className="card-link-main-icon w-20 h-20">{mainIcon}</div>
+          <div className="w-max-content h-[26px] mt-[62px]">
+            <span className="text-2xl card-link-title">{title}</span>
           </div>
         </div>
       </div>
-      <div className={cc(["flex flex-col flex-[1]"])}>
-        <div className={cc(["card-link-notched-corner"])}></div>
-        <div className={cc(["card-link-action-icon-container"])}>
-          <div className={cc(["w-[24px] h-[24px]"])}>
-            {actionIcon}
-          </div>
+      <div className="flex flex-col flex-1">
+        <div className="card-link-notched-corner"></div>
+        <div className="card-link-action-icon-container">
+          <div className="w-6 h-6">{actionIcon}</div>
         </div>
       </div>
     </div>

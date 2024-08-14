@@ -9,12 +9,28 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { QueryClientProvider } from "@tanstack/react-query";
 
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+
 export const withWagmiProvider = (StoryFn) => (
-  <WagmiProvider config={wagmiConfig}>
+  <>
+    <style>
+      {`
+        :root {
+          --font-inter: ${inter.style.fontFamily}
+        }
+        html {
+          font-family: var(--font-inter)
+        }
+      `}
+    </style>
+    <WagmiProvider config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>
-          <RainbowKitProvider>
-            <StoryFn />
-          </RainbowKitProvider>
+        <RainbowKitProvider>
+          <StoryFn />
+        </RainbowKitProvider>
       </QueryClientProvider>
-  </WagmiProvider>
+    </WagmiProvider>
+  </>
 );

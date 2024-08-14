@@ -1,5 +1,4 @@
-import { ReactElement, ReactFragment, ReactNode, SVGProps } from "react";
-import { inter } from "@/pages/_app";
+import { SVGProps } from "react";
 import cc from "classcat";
 import { CheckIcon } from "./icons/CheckIcon";
 import { ArrowIcon } from "./icons/ArrowIcon";

@@ -48,7 +48,7 @@ export const AttestationBadge: React.FC<AttestationBadgeProps> = ({
           <div
             className={cc([{ hidden: imported }, "flex text-xs font-medium"])}
           >
-            <div className="w-[12px] mr-2">
+            <div className="w-3 mr-2">
               <ArrowIcon />
             </div>
             <span className="text-[var(--light-gray)]">IMPORT</span>

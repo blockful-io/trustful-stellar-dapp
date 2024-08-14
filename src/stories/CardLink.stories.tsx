@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { BadgeIcon } from "@/components/atoms/icons/BadgeIcon";
 import { ArrowRightIcon } from "@/components/atoms/icons/ArrowRightIcon";
 import '@/styles/card-link.css'
+import { DisconnectIcon, UserIcon } from "@/components";
 
 const meta = {
   title: "TrustfulStellar/CardLink",
@@ -34,5 +35,14 @@ export const CardLinkWithContent: Story = {
     mainIcon: <BadgeIcon color="#B1EF42"/>,
     title: "Verify reputation",
     actionIcon: <ArrowRightIcon color="var(--primary-black)"/>,
+  },
+};
+
+export const CardLinkWithDifferentContent: Story = {
+  args: {
+    children: <div className="w-20 h-20"></div>,
+    mainIcon: <UserIcon color="#B1EF42"/>,
+    title: "Log Out",
+    actionIcon: <DisconnectIcon color="var(--primary-black)"/>,
   },
 };

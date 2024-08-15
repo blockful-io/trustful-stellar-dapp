@@ -7,7 +7,7 @@ export const HomepageBackground: React.FC<HomepageBackgroundProps> = (
   props
 ) => {
   return (
-    <div className={cc(["absolute top-0 left-[-15vw] w-[100vw] h-[calc(100vh-72px)] z-[-1]", props.className])}>
+    <div className={cc(["absolute top-0 left-[-15vw] w-screen h-[calc(100vh-72px)] z-[-1]", props.className])}>
       <svg
         width="100%"
         height="100%"

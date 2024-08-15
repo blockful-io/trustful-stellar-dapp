@@ -13,7 +13,7 @@ export const AttestationSymbol: React.FC<AttestationSymbolProps> = ({
   ...props
 }) => {
   return (
-    <div className={cc([className, "w-3"])} {...props}>
+    <div className={cc([className, "w-4"])} {...props}>
       <div className={cc([{ hidden: !checked }])}>
         <CheckIcon />
       </div>

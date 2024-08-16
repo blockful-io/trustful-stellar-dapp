@@ -1,6 +1,7 @@
-export * from "./icons/DisconnectIcon"
-export * from "./icons/ArrowIcon"
-export * from "./icons/UserIcon"
+export * from "./homepage";
+export * from "./icons";
 
-export * from "./CardTemplate"
-export * from "./IconicButton"
+export * from "./AttestationBadge";
+export * from "./CardLink";
+export * from "./IconicButton";
+export * from "./CardTemplate";

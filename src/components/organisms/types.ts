@@ -4,6 +4,6 @@ export type Tabs = {
   [tabName: string]: {
     content: ReactNode;
     tabNumber: number;
-    tab?: ReactNode;
+    trigger?: ReactNode;
   };
 };

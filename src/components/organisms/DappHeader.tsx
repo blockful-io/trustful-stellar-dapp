@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ConnectWallet } from "./ConnectWallet";
+import { ConnectStellarWallet } from "./ConnectStellarWallet";
 
 export const DappHeader = () => {
   return (
@@ -16,7 +16,7 @@ export const DappHeader = () => {
         </Link>
       </div>
 
-      <ConnectWallet />
+      <ConnectStellarWallet />
     </div>
   );
 };

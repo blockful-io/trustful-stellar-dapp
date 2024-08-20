@@ -1,3 +1,4 @@
+import { useAuthContext } from "@/lib/auth/Context";
 import {
   ALBEDO_ID,
   AlbedoModule,
@@ -7,12 +8,13 @@ import {
 } from "@creit.tech/stellar-wallets-kit";
 import cc from "classcat";
 import dynamic from "next/dynamic";
+import { UserDropdown } from "../molecules";
 
 interface ConnectWalletProps {
   customClassNames?: string;
 }
 
-const kit: StellarWalletsKit = new StellarWalletsKit({
+export const kit: StellarWalletsKit = new StellarWalletsKit({
   network: WalletNetwork.TESTNET,
   selectedWalletId: ALBEDO_ID,
   modules: [new AlbedoModule()],
@@ -21,7 +23,10 @@ const kit: StellarWalletsKit = new StellarWalletsKit({
 export const ConnectStellarWallet = ({
   customClassNames = "",
 }: ConnectWalletProps) => {
-  return (
+  const { setUserAddress, userAddress } = useAuthContext();
+  return userAddress ? (
+    <UserDropdown/>
+  ) : (
     <button
       className={cc([
         "text-base text-brandBlack font-medium bg-brandGreen p-2 px-6 rounded-lg",
@@ -30,7 +35,7 @@ export const ConnectStellarWallet = ({
       onClick={async (e: any) => {
         kit.setWallet(ALBEDO_ID);
         const { address } = await kit.getAddress();
-        console.log(address);
+        setUserAddress(address);
       }}
     >
       Connect

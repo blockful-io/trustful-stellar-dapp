@@ -1,18 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 import { Address } from "viem";
-import { EnsProfile } from "./index";
 import { DisconnectIcon, UserIcon } from "@/components/atoms";
-import { useDisconnect } from "wagmi";
+import { useAuthContext } from "@/lib/auth/Context";
+import { kit } from "../organisms/ConnectStellarWallet";
+import tailwindConfig from "tailwind.config";
+import cc from "classcat";
 
-interface UserDropdownProps {
-  address: Address;
-}
-
-export const UserDropdown = ({ address }: UserDropdownProps) => {
+export const UserDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const disconnect = useDisconnect();
-
+  const { setUserAddress, userAddress } = useAuthContext();
   const handleClickOutside = (event: MouseEvent) => {
     if (
       dropdownRef.current &&
@@ -20,6 +17,10 @@ export const UserDropdown = ({ address }: UserDropdownProps) => {
     ) {
       setIsOpen(false);
     }
+  };
+
+  const disconnect = () => {
+    setUserAddress("");
   };
 
   useEffect(() => {
@@ -36,45 +37,69 @@ export const UserDropdown = ({ address }: UserDropdownProps) => {
           setIsOpen(!isOpen);
         }}
       >
-
-    <div
-      className="border border-primary rounded-lg p-2 text-gray"
-    >
-      <EnsProfile address={address} />
-    </div>
+        <div
+          className={cc([
+            {
+              "text-brandWhite": !isOpen,
+              "text-brandBlack": isOpen,
+              "bg-brandGreen": isOpen,
+              "border": !isOpen
+            },
+            "border-whiteOpacity05 rounded-lg p-2",
+          ])}
+        >
+          <div className="flex items-center justify-center gap-2">
+            <UserIcon
+              className="w-7"
+              color={
+                isOpen
+                  ? tailwindConfig.theme.extend.colors.brandBlack
+                  : tailwindConfig.theme.extend.colors.brandGreen
+              }
+            />
+            <h2>
+              {[userAddress.slice(0, 4), "...", userAddress.slice(-4)].join("")}
+            </h2>
+          </div>
+        </div>
       </button>
 
       {isOpen && (
-        <div className="z-50 origin-top-right border-primary border absolute right-0 mt-2 w-[220px] rounded-md shadow-lg bg-grey02">
+        <div className="z-50 origin-top-right border-whiteOpacity008 border absolute right-0 mt-2 w-[15vw] rounded-md shadow-lg bg-brandBlack">
           <div
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="options-menu"
           >
             <button
-              onClick={() => {
-                disconnect.disconnect();
-              }}
-              className="flex gap-2 items-center hover:bg-primary p-3 text-base text-whiteOpacity005 hover:bg-gray-100 w-full text-left transition-colors duration-300"
-              role="menuitem"
-            >
-              <DisconnectIcon />
-              <h2 className="text-gray">Disconnect</h2>
-            </button>
-
-            <button
               disabled
-              className="flex justify-between items-center gap-2 cursor-not-allowed p-3 text-base text-whiteOpacity005 hover:bg-gray-100 w-full text-left transition-colors duration-300"
+              className="flex justify-between items-center gap-2 cursor-not-allowed p-3 text-base hover:bg-whiteOpacity05 w-full text-left transition-colors duration-300"
               role="menuitem"
             >
               <div className="flex items-center justify-center gap-2">
-                <UserIcon />
-                <h2 className="text-whiteOpacity005">Profile</h2>
+                <UserIcon
+                  className="w-7"
+                  color={tailwindConfig.theme.extend.colors.brandGreen}
+                />
+                <h2>Profile</h2>
               </div>
 
-              <div className="py-1 px-2 text-xs rounded-full bg-whiteOpacity008 bg-opacity-10 font-medium">
-                COMING SOON
+              <div className="py-1 px-2 text-xs text-whiteOpacity05 text-center rounded-full bg-whiteOpacity005 bg-opacity-10">
+                Coming Soon
               </div>
+            </button>
+            <button
+              onClick={() => {
+                disconnect();
+              }}
+              className="flex gap-2 items-center p-3 text-base hover:bg-whiteOpacity05 w-full transition-colors duration-300"
+              role="menuitem"
+            >
+              <DisconnectIcon
+                color={tailwindConfig.theme.extend.colors.brandGreen}
+                className="w-6"
+              />
+              <h2>Disconnect</h2>
             </button>
           </div>
         </div>

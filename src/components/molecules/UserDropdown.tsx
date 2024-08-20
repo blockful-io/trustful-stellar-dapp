@@ -41,7 +41,7 @@ export const UserDropdown = () => {
           className={cc([
             {
               "text-brandWhite border": !isOpen,
-              "text-brandBlack": isOpen,
+              "text-brandBlack bg-brandGreen": isOpen,
               "bg-brandGreen": isOpen,
               "border": !isOpen
             },

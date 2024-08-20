@@ -40,7 +40,7 @@ export const UserDropdown = () => {
         <div
           className={cc([
             {
-              "text-brandWhite": !isOpen,
+              "text-brandWhite border": !isOpen,
               "text-brandBlack": isOpen,
               "bg-brandGreen": isOpen,
               "border": !isOpen

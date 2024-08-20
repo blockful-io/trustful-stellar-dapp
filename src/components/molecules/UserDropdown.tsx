@@ -5,6 +5,7 @@ import { useAuthContext } from "@/components/auth/Context";
 import { kit } from "../auth/ConnectStellarWallet";
 import tailwindConfig from "tailwind.config";
 import cc from "classcat";
+import { getEllipsedAddress } from "@/lib/utils/getEllipsedAddress";
 
 export const UserDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,7 +59,7 @@ export const UserDropdown = () => {
               }
             />
             <h2>
-              {[userAddress.slice(0, 4), "...", userAddress.slice(-4)].join("")}
+              {getEllipsedAddress(userAddress)}
             </h2>
           </div>
         </div>

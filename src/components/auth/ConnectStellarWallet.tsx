@@ -15,7 +15,7 @@ interface ConnectWalletProps {
 }
 
 export const kit: StellarWalletsKit = new StellarWalletsKit({
-  network: WalletNetwork.TESTNET,
+  network: isTestnet ? WalletNetwork.TESTNET : WalletNetwork.PUBLIC,
   selectedWalletId: ALBEDO_ID,
   modules: [new AlbedoModule()],
 });

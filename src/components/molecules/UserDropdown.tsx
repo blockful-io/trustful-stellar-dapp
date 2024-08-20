@@ -90,9 +90,7 @@ export const UserDropdown = () => {
               </div>
             </button>
             <button
-              onClick={() => {
-                disconnect();
-              }}
+              onClick={disconnect}
               className="flex gap-2 items-center p-3 text-base hover:bg-whiteOpacity05 w-full transition-colors duration-300"
               role="menuitem"
             >

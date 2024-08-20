@@ -8,3 +8,4 @@ export type AuthContext = {
 export type AuthProviderProps = {
     children: ReactNode;
   };
+  

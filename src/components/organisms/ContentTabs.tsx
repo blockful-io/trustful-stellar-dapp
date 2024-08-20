@@ -2,7 +2,7 @@ import { Tabs } from "@/components/organisms/types";
 import cc from "classcat";
 import React, { useState } from "react";
 
-interface ContentTabsProps extends React.ComponentPropsWithoutRef<"div"> {
+export interface ContentTabsProps extends React.ComponentPropsWithoutRef<"div"> {
   tabs: Tabs;
 }
 
@@ -14,7 +14,7 @@ export const ContentTabs: React.FC<ContentTabsProps> = ({
   const [selectedTab, setSelectedTab] = useState(Object.keys(tabs)[0] ?? null);
   return (
     <div className={cc([className, "w-screen h-max bg-brandBlack"])} {...props}>
-      <nav className="flex nav-bar">
+      <nav className="flex nav-bar pl-12">
         {Object.entries(tabs)
           .sort(([_, a], [__, b]) => a.tabNumber - b.tabNumber)
           .map(([tabName, tabProps]) => {
@@ -26,7 +26,7 @@ export const ContentTabs: React.FC<ContentTabsProps> = ({
                 ])}
                 onClick={() => setSelectedTab(tabName)}
               >
-                {tabProps.tab ? tabProps.tab : <span>{tabName}</span>}
+                {tabProps.trigger ? tabProps.trigger : <span>{tabName}</span>}
               </div>
             );
           })}

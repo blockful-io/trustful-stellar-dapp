@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { Address } from "viem";
 import { DisconnectIcon, UserIcon } from "@/components/atoms";
-import { useAuthContext } from "@/lib/auth/Context";
-import { kit } from "../organisms/ConnectStellarWallet";
+import { useAuthContext } from "@/components/auth/Context";
+import { kit } from "../auth/ConnectStellarWallet";
 import tailwindConfig from "tailwind.config";
 import cc from "classcat";
 

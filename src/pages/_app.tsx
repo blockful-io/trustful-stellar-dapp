@@ -12,7 +12,7 @@ import { type AppProps } from "next/app";
 
 import { Toaster } from "react-hot-toast";
 import { DappHeader } from "@/components/organisms";
-import { AuthProvider } from "@/lib/auth/Context";
+import { AuthProvider } from "@/components/auth/Context";
 
 const inter = Inter({ subsets: ["latin"] });
 

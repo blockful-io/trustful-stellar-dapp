@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ConnectStellarWallet } from "./ConnectStellarWallet";
+import { ConnectStellarWallet } from "../auth/ConnectStellarWallet";
 
 export const DappHeader = () => {
   return (

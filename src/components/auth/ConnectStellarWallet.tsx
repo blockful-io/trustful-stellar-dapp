@@ -1,4 +1,4 @@
-import { useAuthContext } from "@/lib/auth/Context";
+import { useAuthContext } from "@/components/auth/Context";
 import {
   ALBEDO_ID,
   AlbedoModule,

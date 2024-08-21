@@ -20,7 +20,7 @@ export const CardLink: React.FC<CardLinkProps> = ({
       className={cc(["flex min-w-[572px] min-h-[232px] card-link", className])}
       {...props}
     >
-      <div className="card-link-main-card">
+      <div className="flex-1 card-link-main-card">
         <div className="flex-col w-full h-full py-8 px-8">
           <div className="card-link-main-icon w-20 h-20">{mainIcon}</div>
           <div className="w-max-content h-[26px] mt-[62px]">
@@ -28,7 +28,7 @@ export const CardLink: React.FC<CardLinkProps> = ({
           </div>
         </div>
       </div>
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-col">
         <div className="card-link-notched-corner"></div>
         <div className="card-link-action-icon-container">
           <div className="w-6 h-6">{actionIcon}</div>

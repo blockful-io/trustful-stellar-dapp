@@ -47,3 +47,4 @@ export const PageTemplateWithContentTabs: Story = {
       }}> </ContentTabs>
     },
   };
+  

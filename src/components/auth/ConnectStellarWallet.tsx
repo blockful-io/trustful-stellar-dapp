@@ -2,13 +2,12 @@ import { useAuthContext } from "@/components/auth/Context";
 import {
   ALBEDO_ID,
   AlbedoModule,
-  ISupportedWallet,
   StellarWalletsKit,
   WalletNetwork,
 } from "@creit.tech/stellar-wallets-kit";
 import cc from "classcat";
-import dynamic from "next/dynamic";
 import { UserDropdown } from "../molecules";
+import { isTestnet } from "@/lib/wallet/chains";
 
 interface ConnectWalletProps {
   customClassNames?: string;

@@ -1,2 +1,2 @@
+export * from "./ContentTabs";
 export * from "./DappHeader";
-export * from "./ConnectWallet";

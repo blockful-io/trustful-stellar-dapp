@@ -1,6 +1,7 @@
 {
   "name": "trustful-stellar-dapp",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,6 +12,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@creit.tech/stellar-wallets-kit": "^1.0.0",
     "@ensdomains/ensjs": "^4.0.0",
     "@rainbow-me/rainbowkit": "2.0.4",
     "@storybook/addon-contexts": "^5.3.21",

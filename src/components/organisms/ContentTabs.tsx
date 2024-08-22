@@ -31,7 +31,7 @@ export const ContentTabs: React.FC<ContentTabsProps> = ({
             );
           })}
       </nav>
-      <div className="w-full">
+      <div className="w-full pt-8">
         {Object.entries(tabs).map(([tabName, tabProps]) => {
           return (
             <div className={cc({ hidden: selectedTab !== tabName })}>

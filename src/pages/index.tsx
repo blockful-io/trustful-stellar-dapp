@@ -4,9 +4,11 @@ import { HomepageBackground } from "@/components/atoms/homepage/HomepageBackgrou
 import { ArrowRightIcon } from "@/components/atoms/icons/ArrowRightIcon";
 import { BadgeIcon } from "@/components/atoms/icons/BadgeIcon";
 import { VerifyReputationIcon } from "@/components/atoms/icons/VerifyReputationIcon";
+import { useRouter } from "next/router";
 import tailwindConfig from "tailwind.config";
 
 const HomePage = () => {
+  const router = useRouter();
   return (
     <div className="relative mx-auto h-full flex items-center justify-center bg-brandBlack z-[0]">
       <HomepageBackground />
@@ -35,7 +37,7 @@ const HomePage = () => {
                   color={tailwindConfig.theme.extend.colors.brandBlack}
                 />
               }
-              onClick={() => console.log("issue badge")}
+              onClick={() => router.push('/issue-badge')}
             />
             <CardLink
               title="Verify Reputation"

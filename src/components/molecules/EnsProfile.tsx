@@ -5,6 +5,7 @@ import { publicClient } from "@/lib/wallet/wallet-config";
 import { getName } from "@ensdomains/ensjs/public";
 import Avatar from "boring-avatars";
 import { getEnsAvatar } from "viem/actions";
+import { getEllipsedAddress } from "@/lib/utils/getEllipsedAddress";
 
 interface UserState {
   avatar: string | null;
@@ -78,7 +79,7 @@ export const EnsProfile = ({ address }: EnsProfileProps) => {
           colors={["#D4ED7A", "rgba(212, 237, 122, 0.12)"]}
         />
       )}
-      {user.name ? user.name : ellipseAddress(address)}
+      {user.name ? user.name : getEllipsedAddress(address)}
     </div>
   );
 };

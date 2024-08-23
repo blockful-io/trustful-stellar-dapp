@@ -1,16 +1,23 @@
+import { UserBadge } from "@/components/users/types";
+import { userBadgeAdapter } from "./adapters/UsersAdapters";
 import httpClient from "./HttpClient";
+import { UserBadgeFromApi } from "./types";
 
 export class UsersClient {
-  static badgesPath = "user/badges";
-  static badgesTrustfulPath = "user/badges/trustful";
-  static badgesBySetPath = "user/badges/bySet";
+  static badgesPath = "users/badges";
+  static badgesTrustfulPath = "users/badges/trustful";
+  static badgesBySetPath = "users/badges/bySet";
   static availableClaimableBalancesPath = "users/available-claimable-balances";
   static scorePath = "users/score";
 
-  getBadges(publicKey: string) {
-    return httpClient.get<any, { publicKey: string }>(UsersClient.badgesPath, {
+  async getBadges(publicKey: string): Promise<UserBadge[]> {
+    const badgesFromApi: UserBadgeFromApi[] = await httpClient.get<
+      any,
+      { publicKey: string }
+    >(UsersClient.badgesPath, {
       publicKey,
     });
+    return badgesFromApi.map(userBadgeAdapter.fromApi);
   }
 
   getBadgesTrustful(publicKey: string) {
@@ -47,3 +54,6 @@ export class UsersClient {
     });
   }
 }
+
+const usersClient = new UsersClient();
+export default usersClient;

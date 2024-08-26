@@ -1,17 +1,18 @@
+import { CommunityBadge } from "@/components/community/types";
 import { CommunityBadgeFromApi } from "../types";
 
 export const communityBadgeAdapter = (() => {
   const fromApi = (
     communityBadgeFromApi: CommunityBadgeFromApi,
     assetCode: string,
-    badgeSet: string,
-    community: string
-  ) => {
+    questName: string,
+    communityName: string
+  ): CommunityBadge => {
     const { score, issuer, description } = communityBadgeFromApi;
     return {
-      badgeSet,
+      questName,
       assetCode,
-      community,
+      communityName,
       score,
       issuer,
       description,

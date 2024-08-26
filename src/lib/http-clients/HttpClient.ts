@@ -5,10 +5,12 @@ import { IGenericHttpClient } from "./types";
 dotenv.config();
 
 class HttpClient implements IGenericHttpClient {
-  baseUrl: string;
+  private readonly _baseUrl: string;
 
   constructor(baseUrl: string) {
-    this.baseUrl = baseUrl;
+    if (!baseUrl)
+      throw new Error("HttpClient constructor: baseUrl empty or invalid");
+    this._baseUrl = baseUrl;
   }
 
   async post<T, P extends Object, B extends Object>(
@@ -16,7 +18,7 @@ class HttpClient implements IGenericHttpClient {
     query: P,
     body: B
   ): Promise<T> {
-    const fullPath = [this.baseUrl, path, "?", parseQueryParams(query)].join(
+    const fullPath = [this._baseUrl, path, "?", parseQueryParams(query)].join(
       ""
     );
     const response = await axios.post<T>(fullPath, body);
@@ -24,7 +26,7 @@ class HttpClient implements IGenericHttpClient {
   }
 
   async get<T, P extends Object>(path: string, query: P): Promise<T> {
-    const fullPath = [this.baseUrl, path, "?", parseQueryParams(query)].join(
+    const fullPath = [this._baseUrl, path, "?", parseQueryParams(query)].join(
       ""
     );
     const response = await axios.get<T>(fullPath);

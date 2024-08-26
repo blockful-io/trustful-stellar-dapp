@@ -1,3 +1,3 @@
-export const convertBadgeSetNameToPresentation = (badgeSetNameFromApi: string) => {
+export const convertQuestNameToPresentation = (badgeSetNameFromApi: string) => {
   return badgeSetNameFromApi.replaceAll("-", " ");
 };

@@ -3,8 +3,8 @@ import { AwardIcon } from "@/components/atoms/icons/AwardIcon";
 import { CodeIcon } from "@/components/atoms/icons/CodeIcon";
 import { UserNinjaIcon } from "@/components/atoms/icons/UserNinjaIcon";
 
-export const getBadgeSetIcon = (badgeSetName: string) => {
-  switch (badgeSetName) {
+export const getQuestIcon = (questName: string) => {
+  switch (questName) {
     case "Stellar-Quests":
       return StarIcon;
     case "Soroban-Quests":
@@ -15,6 +15,5 @@ export const getBadgeSetIcon = (badgeSetName: string) => {
       return CodeIcon;
     default:
       return AwardIcon;
-      break;
   }
 };

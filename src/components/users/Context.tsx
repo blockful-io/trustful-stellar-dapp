@@ -17,7 +17,7 @@ const UsersContextProvider: React.FC<UsersContextProviderProps> = (
 const useUsersContext = () => {
   const ctx = useContext(usersCtx);
   if (ctx === undefined) {
-    throw new Error("userAuthContext: ctx is undefined");
+    throw new Error("userContext: ctx is undefined");
   }
   return ctx;
 };

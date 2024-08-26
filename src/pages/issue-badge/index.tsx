@@ -44,6 +44,7 @@ export default function IssueBadgePage() {
 
   const isImported = (badgeSetName: string) => {
     // Compare user trustful and normal badges with badge set badges.
+    return false;
   };
 
   return (

@@ -1,5 +1,9 @@
-import { GenericModal } from "@/components";
+import { GenericModal, StarIcon } from "@/components";
+import { AttestationSymbol } from "@/components/atoms/AttestationSymbol";
+import { WalletIcon } from "@/components/atoms/icons/WalletIcon";
+import { ImportBadgesModalContent } from "@/components/molecules/ImportBadgesModalContent";
 import type { Meta, StoryObj } from "@storybook/react";
+import tailwindConfig from "tailwind.config";
 
 const meta = {
   title: "TrustfulStellar/GenericModal",
@@ -81,9 +85,40 @@ export const ConnectWalletModal: Story = {
     buttonLabel: "Connect",
     title: "Connect Wallet",
     children: (
-      <div className="p-2 w-full h-full align-center justify-center flex flex-col">
-        <>Connect Wallet</>
+      <div className="p-2 w-full h-full items-center justify-center flex flex-col">
+        <div className="my-8 p-8 pt-6 w-[150px] h-[150px] min-h-[] rounded-full bg-whiteOpacity005 items-center justify-center">
+          <WalletIcon
+            color={tailwindConfig.theme.extend.colors.brandGreen}
+          ></WalletIcon>
+        </div>
+        <div className="text-center">
+          <span>
+            Please connect your wallet to import badges from GitHub Soroban.
+          </span>
+        </div>
       </div>
+    ),
+  },
+};
+
+export const ImportBadgesModal: Story = {
+  args: {
+    isOpen: true,
+    buttonLabel: "Import",
+    title: "Import attestations",
+    children: (
+      <ImportBadgesModalContent
+        badges={[
+          { description: "L1: Payment Operations", isImported: true },
+          { description: "L2: Configuration Operations", isImported: true },
+          { description: "L3: Advanced Operations", isImported: false },
+          { description: "Side Quest 1", isImported: true },
+          { description: "Side Quest 2", isImported: false },
+          { description: "Side Quest 3", isImported: false },
+        ]}
+        title="Stellar Quest"
+        icon={<StarIcon></StarIcon>}
+      />
     ),
   },
 };

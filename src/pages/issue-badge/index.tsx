@@ -42,12 +42,9 @@ export default function IssueBadgePage() {
     fetchBadges();
   }, [fetchBadges]);
 
-  useEffect(() => {
-    console.log(communityBadges);
-    console.log(userBadges);
-  }, [userBadges, communityBadges]);
-
-  const isImported = (badgeSetName: string) => {};
+  const isImported = (badgeSetName: string) => {
+    // Compare user trustful and normal badges with badge set badges.
+  };
 
   return (
     <PageTemplate className="" title={"Generate Attestation"}>

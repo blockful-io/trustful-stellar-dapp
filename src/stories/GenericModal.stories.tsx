@@ -74,3 +74,16 @@ export const ClosedModal: Story = {
     isOpen: false,
   },
 };
+
+export const ConnectWalletModal: Story = {
+  args: {
+    isOpen: true,
+    buttonLabel: "Connect",
+    title: "Connect Wallet",
+    children: (
+      <div className="p-2 w-full h-full align-center justify-center flex flex-col">
+        <>Connect Wallet</>
+      </div>
+    ),
+  },
+};

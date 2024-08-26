@@ -25,7 +25,7 @@ export const GenericModal = ({
   return (
     <div
       className={cc([
-        "fixed inset-0 bg-black bg-opacity-50 flex backdrop-blur-sm justify-center items-center transition-all duration-300",
+        "fixed inset-0 bg-opacity-50 flex backdrop-blur-sm justify-center items-center transition-all duration-300",
         isOpen ? "z-50 opacity-100" : "opacity-0 z-[-50]",
       ])}
       onClick={onClose}

@@ -2,6 +2,7 @@ import { CommunityBadge } from "@/components/community/types";
 import { communityBadgeAdapter } from "./adapters/CommunityAdapters";
 import httpClient from "./HttpClient";
 import { BadgesFromBadgeSetResponse, CommunityBadgeFromApi } from "./types";
+import { computePublicKey } from "ethers/lib/utils";
 
 export class CommunityClient {
   static badgeSetsBadgesPath = "community/badgeSets/badges";
@@ -19,28 +20,32 @@ export class CommunityClient {
   }
 
   async getBadgeSetsBadges(
-    community: string | undefined,
-    badgeSetName: string
+    community: string | undefined
   ): Promise<CommunityBadge[]> {
-    try{
+    try {
       const { badges } = await httpClient.get<
-      BadgesFromBadgeSetResponse,
-      { community: string; badgeSetName: string }
+        BadgesFromBadgeSetResponse,
+        { community: string }
       >(CommunityClient.badgeSetsBadgesPath, {
         community: community ?? CommunityClient.defaultCommunity,
-        badgeSetName,
       });
-      return Object.entries(badges).map(([assetCode, badge]) =>
-        communityBadgeAdapter.fromApi(
-          badge,
-          assetCode,
-          badgeSetName,
-          community ?? CommunityClient.defaultCommunity
-        )
-      );
-    } catch(error){
+      let communityBadges: CommunityBadge[] = [];
+      Object.keys(badges).forEach((badgeSetName) => {
+        Object.entries(badges[badgeSetName]).forEach(([assetCode, badge]) =>
+          communityBadges.push(
+            communityBadgeAdapter.fromApi(
+              badge,
+              assetCode,
+              badgeSetName,
+              community ?? CommunityClient.defaultCommunity
+            )
+          )
+        );
+      });
+      return communityBadges;
+    } catch (error) {
       console.error(error);
-      return []
+      return [];
     }
   }
 }

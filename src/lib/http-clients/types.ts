@@ -31,6 +31,8 @@ export type CommunityBadgeFromApi = {
 
 export type BadgesFromBadgeSetResponse = {
   badges: {
-    [assetCode: string]: CommunityBadgeFromApi;
+    [badgeSetName: string]: {
+      [assetCode: string]: CommunityBadgeFromApi;
+    };
   };
 };

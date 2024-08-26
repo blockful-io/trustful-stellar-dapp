@@ -10,7 +10,7 @@ export type CommunityContextProviderProps = {
 };
 
 export type CommunityBadge = {
-  community: string;
+  communityName: string;
   badgeSet: string;
   assetCode: string;
   score: number;

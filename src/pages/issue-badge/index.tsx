@@ -25,9 +25,12 @@ export default function IssueBadgePage() {
         const communityBadges = await communityClient.getCommunityBadges();
         const quests: CommunityQuests = _.groupBy(communityBadges, "questName");
         setCommunityQuests(quests);
+      } else {
+        setUserBadges([]);
       }
     } catch (error) {
       console.error(error);
+      setUserBadges([]);
       throw error;
     }
   }, [userAddress]);

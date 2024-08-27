@@ -20,6 +20,7 @@ export const ContentTabs: React.FC<ContentTabsProps> = ({
           .map(([tabName, tabProps]) => {
             return (
               <div
+                key={tabName}
                 className={cc([
                   { "tab-active": tabName == selectedTab },
                   "tab p-2 px-4",
@@ -34,7 +35,7 @@ export const ContentTabs: React.FC<ContentTabsProps> = ({
       <div className="w-full pt-8">
         {Object.entries(tabs).map(([tabName, tabProps]) => {
           return (
-            <div className={cc({ hidden: selectedTab !== tabName })}>
+            <div key={tabName} className={cc({ hidden: selectedTab !== tabName })}>
               {tabProps.content}
             </div>
           );

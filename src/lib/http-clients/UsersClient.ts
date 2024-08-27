@@ -23,7 +23,7 @@ export class UserClient {
     return badgesFromApi.map(userBadgeAdapter.fromApi);
   }
 
-  getBadgesTrustful(publicKey: string) {
+  getBadgesTrustful(publicKey: string): Promise<UserBadge[]> {
     if (!publicKey) {
       throw new Error(
         "UserClient getBadgesTrustful: publicKey empty or invalid"

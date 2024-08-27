@@ -27,8 +27,8 @@ export const ImportBadgesModalContent = ({
               BADGES AVAILABLE
             </span>
           </div>
-          {badges.map(({ description, isImported }) => (
-            <>
+          {badges.map(({ description, isImported }, index) => (
+            <div key={index}>
               <hr className="border-whiteOpacity008 w-full px-0 mx-0 mt-2 mb-3" />
               <div className="px-4 flex">
                 <span className="flex-1 text-[14px]">
@@ -38,7 +38,7 @@ export const ImportBadgesModalContent = ({
                   <AttestationSymbol checked={isImported}></AttestationSymbol>
                 </div>
               </div>
-            </>
+            </div>
           ))}
         </div>
       )}

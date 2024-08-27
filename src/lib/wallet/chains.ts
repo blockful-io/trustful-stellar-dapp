@@ -1,4 +1,4 @@
-import dotenv from 'dotenv'
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -14,4 +14,4 @@ export const DEFAULT_CHAIN_ID = process.env.NEXT_PUBLIC_USE_TESTNET
   ? ETHEREUM_TESTNET_CHAIN_ID
   : ETHEREUM_MAINNET_CHAIN_ID;
 
-export const isTestnet = process.env.NEXT_PUBLIC_USE_TESTNET;
+export const isTestnet = !!parseInt(process.env.NEXT_PUBLIC_USE_TESTNET ?? "0");

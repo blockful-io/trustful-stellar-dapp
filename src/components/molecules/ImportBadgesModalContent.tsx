@@ -23,7 +23,7 @@ export const ImportBadgesModalContent = ({
       {badges.length > 0 && (
         <div className="w-full h-full min-h-[20px] rounded-lg border border-whiteOpacity008 py-2 flex flex-col">
           <div className="px-4">
-            <span className="text-[12px] text-whiteOpacity05 tracking-wider">
+            <span className="text-xs text-whiteOpacity05 tracking-wider">
               BADGES AVAILABLE
             </span>
           </div>

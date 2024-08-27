@@ -101,8 +101,12 @@ export default function IssueBadgePage() {
       await sendSignedTransaction(transaction, userAddress);
       toast.success("The badges were imported with success");
     } catch(error: unknown){
-      if((error as Error)?.message.includes("Transaction Failed")){
-        toast.error((error as Error)?.message)
+      if((error as Error)?.message.includes("Action request was rejected by the user.")){
+        toast.error("Transaction Rejected", {position: "top-right", duration: 2000})
+        return;
+      }
+      else if(!!(error as Error)?.message){
+        toast.error((error as Error)?.message, {position: "top-right", duration: 2000})
         return;
       }
       throw error;

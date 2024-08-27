@@ -17,7 +17,7 @@ export const ImportBadgesModalContent = ({
       {title && (
         <div className="w-full h-full min-h-[20px] items-center justify-center flex py-6">
           {icon && <div className="h-[30px] w-[30px] mx-4">{icon}</div>}
-          {<h2 className="text-[28px]">Stellar Quest</h2>}
+          {<h2 className="text-xl">Stellar Quest</h2>}
         </div>
       )}
       {badges.length > 0 && (

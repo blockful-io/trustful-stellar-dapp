@@ -172,7 +172,7 @@ export default function IssueBadgePage() {
           isAsync={true}
         >
           <div className="p-2 w-full h-full items-center justify-center flex flex-col">
-            <div className="my-8 p-8 pt-6 w-[150px] h-[150px] min-h-[] rounded-full bg-whiteOpacity005 items-center justify-center">
+            <div className="my-8 p-8 pt-6 w-[150px] h-[150px] rounded-full bg-whiteOpacity005 items-center justify-center">
               <WalletIcon
                 color={tailwindConfig.theme.extend.colors.brandGreen}
               ></WalletIcon>

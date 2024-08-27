@@ -23,18 +23,19 @@ export class UserClient {
     return badgesFromApi.map(userBadgeAdapter.fromApi);
   }
 
-  getBadgesTrustful(publicKey: string): Promise<UserBadge[]> {
+  async getBadgesTrustful(publicKey: string): Promise<UserBadge[]> {
     if (!publicKey) {
       throw new Error(
         "UserClient getBadgesTrustful: publicKey empty or invalid"
       );
     }
-    return httpClient.get<any, { publicKey: string }>(
-      UserClient.badgesTrustfulPath,
-      {
-        publicKey,
-      }
-    );
+    const badgesFromApi: UserBadgeFromApi[] = await httpClient.get<
+      any,
+      { publicKey: string }
+    >(UserClient.badgesTrustfulPath, {
+      publicKey,
+    });
+    return badgesFromApi.map(userBadgeAdapter.fromApi);
   }
 
   getBadgesBySet(publicKey: string, badgeSetName: string) {

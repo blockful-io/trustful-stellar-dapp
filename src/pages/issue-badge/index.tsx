@@ -38,6 +38,7 @@ export default function IssueBadgePage() {
   } = useUsersContext();
 
   const [isImportModalOpen, setImportModalOpen] = useState(false);
+  const [selectedQuestName, setSelectedQuestName] = useState("");
 
   const fetchBadges = useCallback(async () => {
     try {
@@ -77,14 +78,19 @@ export default function IssueBadgePage() {
     fetchBadges();
   }, [fetchBadges]);
 
-  const isImported = (badgeSetName: string) => {
+  const questIsFullyImported = (questName: string) => {
+    if (!userAddress) {
+      return undefined;
+    }
     // TODO: Compare user trustful and normal badges with badge set badges.
-    return false;
+    const needToImportBadges =
+      getModalBadges(questName).filter(({ isImported }) => isImported === false)
+        .length > 0;
+    return !needToImportBadges;
   };
 
   const importBadges = async () => {
-    try{
-
+    try {
       const assetCodesToImport = userBadgesToImport.reduce(
         (assetCodesAcc, currentBadge) => {
           if (currentBadge.assetCode) {
@@ -100,17 +106,52 @@ export default function IssueBadgePage() {
       );
       await sendSignedTransaction(transaction, userAddress);
       toast.success("The badges were imported with success");
-    } catch(error: unknown){
-      if((error as Error)?.message.includes("Action request was rejected by the user.")){
-        toast.error("Transaction Rejected", {position: "top-right", duration: 2000})
+    } catch (error: unknown) {
+      if (
+        (error as Error)?.message.includes(
+          "Action request was rejected by the user."
+        )
+      ) {
+        toast.error("Transaction Rejected", {
+          position: "top-right",
+          duration: 2000,
+        });
         return;
-      }
-      else if(!!(error as Error)?.message){
-        toast.error((error as Error)?.message, {position: "top-right", duration: 2000})
+      } else if (!!(error as Error)?.message) {
+        toast.error((error as Error)?.message, {
+          position: "top-right",
+          duration: 2000,
+        });
         return;
       }
       throw error;
     }
+  };
+
+  const getModalBadges = (questName: string) => {
+    if (!communityQuests[questName]) {
+      return [];
+    }
+    const questBadges = communityQuests[questName]?.map(
+      ({ description, assetCode }) => ({ description, assetCode })
+    );
+    const questBadgesWithIsImported = questBadges.map((questBadge) => {
+      const isImported = userBadgesImported
+        .map(({ assetCode }) => assetCode?.toLocaleLowerCase())
+        .includes(questBadge.assetCode?.toLocaleLowerCase());
+      if (isImported) {
+        return { ...questBadge, isImported };
+      }
+
+      const isToImport = userBadgesToImport
+        .map(({ assetCode }) => assetCode?.toLocaleLowerCase())
+        .includes(questBadge.assetCode?.toLocaleLowerCase());
+      if (isToImport) {
+        return { ...questBadge, isImported: false };
+      }
+      return { ...questBadge, isImported: undefined };
+    });
+    return questBadgesWithIsImported;
   };
 
   return (
@@ -125,9 +166,10 @@ export default function IssueBadgePage() {
                     key={questName}
                     title={convertQuestNameToPresentation(questName)}
                     icon={getQuestIcon(questName)}
-                    imported={isImported(questName)}
+                    imported={questIsFullyImported(questName)}
                     onClick={() => {
                       setImportModalOpen(true);
+                      setSelectedQuestName(questName);
                     }}
                   ></AttestationBadge>
                 ))}
@@ -151,7 +193,7 @@ export default function IssueBadgePage() {
           isAsync={true}
         >
           <ImportBadgesModalContent
-            badges={[]}
+            badges={getModalBadges(selectedQuestName)}
             title="Stellar Quest"
             icon={<StarIcon></StarIcon>}
           />
@@ -159,8 +201,8 @@ export default function IssueBadgePage() {
       ) : (
         <GenericModal
           isOpen={isImportModalOpen}
-          buttonLabel="Import"
-          title="Import attestations"
+          buttonLabel="Connect"
+          title="Connect Wallet"
           onClose={() => {
             setImportModalOpen(false);
           }}

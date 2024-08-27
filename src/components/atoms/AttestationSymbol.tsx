@@ -17,7 +17,7 @@ export const AttestationSymbol: React.FC<AttestationSymbolProps> = ({
       <div className={cc([{ hidden: !checked }])}>
         <CheckIcon />
       </div>
-      <div className={cc([{ hidden: checked }])}>
+      <div className={cc([{ hidden: checked }, "w-3 mt-1"])}>
         <XIcon />
       </div>
     </div>

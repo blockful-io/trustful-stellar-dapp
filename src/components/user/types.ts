@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
 
-export type UsersContext = {
+export type UserContext = {
   userBadges: UserBadge[];
   setUserBadges: (userBadges: UserBadge[]) => void;
 };
 
-export type UsersContextProviderProps = {
+export type UserContextProviderProps = {
   children: ReactNode;
 };
 

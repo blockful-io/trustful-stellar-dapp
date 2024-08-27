@@ -1,9 +1,9 @@
-import { UserBadge } from "@/components/users/types";
-import { userBadgeAdapter } from "./adapters/UsersAdapters";
+import { UserBadge } from "@/components/user/types";
+import { userBadgeAdapter } from "./adapters/UserAdapters";
 import httpClient from "./HttpClient";
 import { UserBadgeFromApi } from "./types";
 
-export class UsersClient {
+export class UserClient {
   static badgesPath = "users/badges";
   static badgesTrustfulPath = "users/badges/trustful";
   static badgesBySetPath = "users/badges/bySet";
@@ -11,18 +11,26 @@ export class UsersClient {
   static scorePath = "users/score";
 
   async getBadges(publicKey: string): Promise<UserBadge[]> {
+    if (!publicKey) {
+      throw new Error("UserClient getBadges: publicKey empty or invalid");
+    }
     const badgesFromApi: UserBadgeFromApi[] = await httpClient.get<
       any,
       { publicKey: string }
-    >(UsersClient.badgesPath, {
+    >(UserClient.badgesPath, {
       publicKey,
     });
     return badgesFromApi.map(userBadgeAdapter.fromApi);
   }
 
   getBadgesTrustful(publicKey: string) {
+    if (!publicKey) {
+      throw new Error(
+        "UserClient getBadgesTrustful: publicKey empty or invalid"
+      );
+    }
     return httpClient.get<any, { publicKey: string }>(
-      UsersClient.badgesTrustfulPath,
+      UserClient.badgesTrustfulPath,
       {
         publicKey,
       }
@@ -30,8 +38,11 @@ export class UsersClient {
   }
 
   getBadgesBySet(publicKey: string, badgeSetName: string) {
+    if (!publicKey) {
+      throw new Error("UserClient getBadgesBySet: publicKey empty or invalid");
+    }
     return httpClient.get<any, { publicKey: string; badgeSetName: string }>(
-      UsersClient.badgesBySetPath,
+      UserClient.badgesBySetPath,
       {
         publicKey,
         badgeSetName,
@@ -40,8 +51,13 @@ export class UsersClient {
   }
 
   getAvailableClaimableBalancesPath(publicKey: string) {
+    if (!publicKey) {
+      throw new Error(
+        "UserClient getAvailableClaimableBalancesPath: publicKey empty or invalid"
+      );
+    }
     return httpClient.get<any, { userPublicKey: string }>(
-      UsersClient.availableClaimableBalancesPath,
+      UserClient.availableClaimableBalancesPath,
       {
         userPublicKey: publicKey,
       }
@@ -49,11 +65,14 @@ export class UsersClient {
   }
 
   getScore(publicKey: string) {
-    return httpClient.get<any, { publicKey: string }>(UsersClient.scorePath, {
+    if (!publicKey) {
+      throw new Error("UserClient getScore: publicKey empty or invalid");
+    }
+    return httpClient.get<any, { publicKey: string }>(UserClient.scorePath, {
       publicKey,
     });
   }
 }
 
-const usersClient = new UsersClient();
+const usersClient = new UserClient();
 export default usersClient;

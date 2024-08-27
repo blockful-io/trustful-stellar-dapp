@@ -1,14 +1,23 @@
 import React, { createContext, useContext, useState } from "react";
-import { CommunityBadge, CommunityContext, CommunityContextProviderProps } from "./types";
+import {
+  CommunityContext,
+  CommunityContextProviderProps,
+  CommunityQuests,
+} from "./types";
 
 const communityCtx = createContext<CommunityContext | undefined>(undefined);
 
 const CommunityContextProvider: React.FC<CommunityContextProviderProps> = (
   props: CommunityContextProviderProps
 ) => {
-  const [communityBadges, setCommunityBadges] = useState<CommunityBadge[]>([]);
+  const [communityQuests, setCommunityQuests] = useState<CommunityQuests>({});
   return (
-    <communityCtx.Provider value={{ communityBadges, setCommunityBadges }}>
+    <communityCtx.Provider
+      value={{
+        communityQuests,
+        setCommunityQuests,
+      }}
+    >
       {props.children}
     </communityCtx.Provider>
   );

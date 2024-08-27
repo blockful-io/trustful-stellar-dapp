@@ -1,4 +1,4 @@
-import { UserBadge } from "@/components/users/types";
+import { UserBadge } from "@/components/user/types";
 import { UserBadgeFromApi } from "../types";
 
 export const userBadgeAdapter = (() => {

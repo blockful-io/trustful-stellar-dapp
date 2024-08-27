@@ -13,7 +13,7 @@ import { type AppProps } from "next/app";
 import { Toaster } from "react-hot-toast";
 import { DappHeader } from "@/components/organisms";
 import { AuthProvider } from "@/components/auth/Context";
-import { UsersContextProvider } from "@/components/users/Context";
+import { UserContextProvider } from "@/components/user/Context";
 import { CommunityContextProvider } from "@/components/community/Context";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,7 +21,7 @@ const inter = Inter({ subsets: ["latin"] });
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
-      <UsersContextProvider>
+      <UserContextProvider>
         <CommunityContextProvider>
           <QueryClientProvider client={queryClient}>
             <div className={`${inter.className} h-screen flex flex-col`}>
@@ -45,7 +45,7 @@ export default function App({ Component, pageProps }: AppProps) {
             </div>
           </QueryClientProvider>
         </CommunityContextProvider>
-      </UsersContextProvider>
+      </UserContextProvider>
     </AuthProvider>
   );
 }

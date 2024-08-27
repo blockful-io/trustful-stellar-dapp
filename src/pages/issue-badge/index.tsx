@@ -1,40 +1,37 @@
-import {
-  AttestationBadge,
-  CalculatorIcon,
-  ContentTabs,
-  StarIcon,
-} from "@/components";
+import { AttestationBadge, ContentTabs } from "@/components";
 import { useAuthContext } from "@/components/auth/Context";
 import { useCommunityContext } from "@/components/community/Context";
 import { CardWrapper } from "@/components/templates/CardWrapper";
 import { PageTemplate } from "@/components/templates/PageTemplate";
-import { useUsersContext } from "@/components/users/Context";
+import { useUsersContext } from "@/components/user/Context";
 import communityClient from "@/lib/http-clients/CommunityClient";
 import usersClient from "@/lib/http-clients/UsersClient";
-import { getBadgeSetIcon } from "@/lib/getBadgeSetIcon";
-import { convertBadgeSetNameToPresentation } from "@/lib/utils/convertBadgeSetNameToPresentation";
-import { useCallback, useEffect, useState } from "react";
+import { getQuestIcon as getQuestIcon } from "@/lib/getQuestIcon";
+import { convertQuestNameToPresentation } from "@/lib/utils/convertBadgeSetNameToPresentation";
+import { useCallback, useEffect } from "react";
+import _ from "lodash";
+import { CommunityQuests } from "@/components/community/types";
 
 export default function IssueBadgePage() {
   const { userAddress } = useAuthContext();
-  const { communityBadges, setCommunityBadges } = useCommunityContext();
+  const { setCommunityQuests, communityQuests } = useCommunityContext();
   const { userBadges, setUserBadges } = useUsersContext();
 
-  const [badgeSets, setBadgeSets] = useState<string[]>([]);
-
   const fetchBadges = useCallback(async () => {
-    if (userAddress) {
-      const userBadges = await usersClient.getBadges(userAddress);
-      setUserBadges(userBadges);
-      const communityBadgeSets: string[] = await communityClient.getBadgeSets();
-      setBadgeSets(communityBadgeSets);
-      communityBadgeSets.forEach(async (badgeSet) => {
-        const badgesFromBadgeSet = await communityClient.getBadgeSetsBadges(
-          undefined,
-          badgeSet
-        );
-        setCommunityBadges([...communityBadges, ...badgesFromBadgeSet]);
-      });
+    try {
+      if (userAddress) {
+        const userBadges = await usersClient.getBadges(userAddress);
+        setUserBadges(userBadges);
+        const communityBadges = await communityClient.getCommunityBadges();
+        const quests: CommunityQuests = _.groupBy(communityBadges, "questName");
+        setCommunityQuests(quests);
+      } else {
+        setUserBadges([]);
+      }
+    } catch (error) {
+      console.error(error);
+      setUserBadges([]);
+      throw error;
     }
   }, [userAddress]);
 
@@ -43,7 +40,7 @@ export default function IssueBadgePage() {
   }, [fetchBadges]);
 
   const isImported = (badgeSetName: string) => {
-    // Compare user trustful and normal badges with badge set badges.
+    // TODO: Compare user trustful and normal badges with badge set badges.
     return false;
   };
 
@@ -54,11 +51,11 @@ export default function IssueBadgePage() {
           Import: {
             content: (
               <CardWrapper>
-                {badgeSets.map((badgeSetName) => (
+                {Object.keys(communityQuests).map((questName) => (
                   <AttestationBadge
-                    title={convertBadgeSetNameToPresentation(badgeSetName)}
-                    icon={getBadgeSetIcon(badgeSetName)}
-                    imported={isImported(badgeSetName)}
+                    title={convertQuestNameToPresentation(questName)}
+                    icon={getQuestIcon(questName)}
+                    imported={isImported(questName)}
                   ></AttestationBadge>
                 ))}
               </CardWrapper>

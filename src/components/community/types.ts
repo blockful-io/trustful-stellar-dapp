@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 
 export type CommunityContext = {
-  communityBadges: CommunityBadge[];
-  setCommunityBadges: (communityBadges: CommunityBadge[]) => void;
+  communityQuests: CommunityQuests;
+  setCommunityQuests: (communityQuests: CommunityQuests) => void;
 };
 
 export type CommunityContextProviderProps = {
@@ -10,10 +10,14 @@ export type CommunityContextProviderProps = {
 };
 
 export type CommunityBadge = {
-  community: string;
-  badgeSet: string;
+  communityName: string;
+  questName: string;
   assetCode: string;
   score: number;
   issuer: string;
   description: string;
+};
+
+export type CommunityQuests = {
+  [questName: string]: CommunityBadge[];
 };

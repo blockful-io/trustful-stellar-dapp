@@ -17,13 +17,13 @@ export const ImportBadgesModalContent = ({
       {title && (
         <div className="w-full h-full min-h-[20px] items-center justify-center flex py-6">
           {icon && <div className="h-[30px] w-[30px] mx-4">{icon}</div>}
-          {<h2 className="text-[28px]">Stellar Quest</h2>}
+          {<h2 className="text-xl">Stellar Quest</h2>}
         </div>
       )}
       {badges.length > 0 && (
-        <div className="w-full h-full min-h-[20px] rounded-[8px] border border-whiteOpacity008 py-2 flex flex-col">
+        <div className="w-full h-full min-h-[20px] rounded-lg border border-whiteOpacity008 py-2 flex flex-col">
           <div className="px-4">
-            <span className="text-[12px] text-whiteOpacity05 tracking-wider">
+            <span className="text-xs text-whiteOpacity05 tracking-wider">
               BADGES AVAILABLE
             </span>
           </div>

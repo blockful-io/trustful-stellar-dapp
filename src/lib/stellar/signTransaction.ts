@@ -48,11 +48,12 @@ export const sendSignedTransaction = async (
       originalTransaction.toXDR()
     );
 
+    const multipliedBaseFee = String(parseInt(StellarSdk.BASE_FEE) * 2);
     // 3. Fee bump the original transaction
     const feeBumpTransaction: StellarSdk.FeeBumpTransaction =
       StellarSdk.TransactionBuilder.buildFeeBumpTransaction(
         userAddress,
-        String(parseInt(StellarSdk.BASE_FEE) * 2),
+        multipliedBaseFee,
         signedTransaction,
         network
       );
@@ -64,7 +65,7 @@ export const sendSignedTransaction = async (
     // 4. Submit the fee-bumped transaction
     const res = await horizonServer.submitTransaction(signedFeeBumpTransaction);
     if (res) {
-      console.log("Success! Tx hash is: ", res?.hash);
+      return res.hash;
     }
   } catch (error) {
     if (error instanceof StellarSdk.NetworkError) {

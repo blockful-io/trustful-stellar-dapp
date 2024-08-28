@@ -8,6 +8,8 @@ import {
 import cc from "classcat";
 import { UserDropdown } from "../molecules";
 import { isTestnet } from "@/lib/wallet/chains";
+import dotenv from 'dotenv'
+dotenv.config();
 
 interface ConnectWalletProps {
   customClassNames?: string;

@@ -1,5 +1,6 @@
 import { IconPosition } from "@/types/iconPosition";
 import cc from "classcat";
+import { ClipLoader, PacmanLoader, PulseLoader } from "react-spinners";
 
 interface IconicButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -7,6 +8,7 @@ interface IconicButtonProps
   label: string;
   onClick: () => void;
   iconPosition?: IconPosition;
+  isLoading?: boolean;
 }
 
 export const IconicButton = ({
@@ -15,6 +17,7 @@ export const IconicButton = ({
   onClick,
   className,
   iconPosition = IconPosition.LEFT,
+  isLoading,
   ...props
 }: IconicButtonProps) => {
   return (
@@ -27,7 +30,11 @@ export const IconicButton = ({
         className,
       ])}
     >
-      {icon}
+      {!isLoading ? (
+        icon && <div className="w-5 h-5">{icon}</div>
+      ) : (
+        <PulseLoader size={8}></PulseLoader>
+      )}
       {label}
     </button>
   );

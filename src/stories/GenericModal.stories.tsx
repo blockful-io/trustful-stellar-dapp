@@ -23,8 +23,7 @@ const meta = {
     onClose: () => {},
     title: "My modal title",
     buttonLabel: "My custom label",
-    communicateMainCtaTxSuccess: () => {},
-    onMainCtaClick: () => new Promise((res, rej) => res("0x")),
+    onButtonClick: () => {},
   },
 } satisfies Meta<typeof GenericModal>;
 
@@ -63,7 +62,7 @@ export const ModalWithCustomActionOnClose: Story = {
 
 export const ModalWithCustomActionOnCtaClick: Story = {
   args: {
-    onMainCtaClick: () => new Promise((res, rej) => alert("Did something")),
+    onButtonClick: () => new Promise((res, rej) => alert("Did something")),
   },
 };
 

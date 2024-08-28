@@ -1,8 +1,17 @@
 import { ReactNode } from "react";
+import { CommunityBadge } from "../community/types";
 
 export type UserContext = {
   userBadges: UserBadge[];
+  userBadgesImported: UserBadge[]; // User Badges that are already imported to trustful;
+  userBadgesToImport: UserBadge[];
   setUserBadges: (userBadges: UserBadge[]) => void;
+  setUserBadgesImported: (userBadgesImported: UserBadge[]) => void;
+  setUserBadgesToImport: (
+    userBadges: UserBadge[],
+    userBadgesImported: UserBadge[],
+    communityBadges: CommunityBadge[]
+  ) => void;
 };
 
 export type UserContextProviderProps = {

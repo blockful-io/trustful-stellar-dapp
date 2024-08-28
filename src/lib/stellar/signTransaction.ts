@@ -1,7 +1,7 @@
 import { kit } from "@/components/auth/ConnectStellarWallet";
-import { useAuthContext } from "@/components/auth/Context";
 import { WalletNetwork } from "@creit.tech/stellar-wallets-kit";
 import * as StellarSdk from "@stellar/stellar-sdk";
+import toast from "react-hot-toast";
 
 const signTransaction = async (transactionXdr: string) => {
   const { address } = await kit.getAddress();
@@ -9,44 +9,68 @@ const signTransaction = async (transactionXdr: string) => {
     address,
     networkPassphrase: WalletNetwork.PUBLIC,
   });
-  return new StellarSdk.Transaction(signedTxXdr, StellarSdk.Networks.PUBLIC);
+  const transaction = new StellarSdk.Transaction(
+    signedTxXdr,
+    StellarSdk.Networks.PUBLIC
+  );
+  return transaction;
 };
 
-export const sendSignedTransaction = async (transactionXdr: string) => {
-  const network = StellarSdk.Networks.PUBLIC;
-  const { userAddress } = useAuthContext();
-  const horizonServer = new StellarSdk.Horizon.Server(
-    "https://horizon.stellar.org"
+const signFeeBumpTransaction = async (transactionXdr: string) => {
+  const { address } = await kit.getAddress();
+  const { signedTxXdr } = await kit.signTransaction(transactionXdr, {
+    address,
+    networkPassphrase: WalletNetwork.PUBLIC,
+  });
+  const feeBumpTransaction = new StellarSdk.FeeBumpTransaction(
+    signedTxXdr,
+    StellarSdk.Networks.PUBLIC
   );
-  // 2. Re build the original transaction
-  const originalTransaction = new StellarSdk.Transaction(
-    transactionXdr,
-    network
-  );
-  const signedTransaction = await signTransaction(originalTransaction.toXDR());
+  return feeBumpTransaction;
+};
 
-  // 3. Fee bump the original transaction
-  const feeBumpTransaction =
-    StellarSdk.TransactionBuilder.buildFeeBumpTransaction(
-      userAddress,
-      StellarSdk.BASE_FEE,
-      signedTransaction,
+export const sendSignedTransaction = async (
+  transactionXdr: string,
+  userAddress: string
+) => {
+  try {
+    const network = StellarSdk.Networks.PUBLIC;
+    const horizonServer = new StellarSdk.Horizon.Server(
+      "https://horizon.stellar.org"
+    );
+
+    // 2. Re build the original transaction
+    const originalTransaction = new StellarSdk.Transaction(
+      transactionXdr,
       network
     );
-  const signedFeeBumpTransaction = await signTransaction(
-    feeBumpTransaction.toXDR()
-  );
+    const signedTransaction = await signTransaction(
+      originalTransaction.toXDR()
+    );
 
-  // 4. Submit the fee-bumped transaction
-  const res = await horizonServer
-    .submitTransaction(signedFeeBumpTransaction)
-    .catch((error: any) => {
-      console.error(
-        "Transaction submission failed:",
-        error.response.data.extras.result_codes
+    // 3. Fee bump the original transaction
+    const feeBumpTransaction: StellarSdk.FeeBumpTransaction =
+      StellarSdk.TransactionBuilder.buildFeeBumpTransaction(
+        userAddress,
+        String(parseInt(StellarSdk.BASE_FEE) * 2),
+        signedTransaction,
+        network
       );
-    });
-  if (res) {
-    console.log("Success! Tx hash is: ", res?.hash);
+
+    const signedFeeBumpTransaction = await signFeeBumpTransaction(
+      feeBumpTransaction.toXDR()
+    );
+
+    // 4. Submit the fee-bumped transaction
+    const res = await horizonServer.submitTransaction(signedFeeBumpTransaction);
+    if (res) {
+      console.log("Success! Tx hash is: ", res?.hash);
+    }
+  } catch (error) {
+    if (error instanceof StellarSdk.NetworkError) {
+      console.error(error?.response.data);
+      throw new Error("Transaction Failed: " + error.message);
+    }
+    throw error;
   }
 };

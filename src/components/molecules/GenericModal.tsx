@@ -25,8 +25,12 @@ export const GenericModal = ({
   const [isExecuting, setIsExecuting] = useState(false);
   const onButtonClickAsync = async () => {
     setIsExecuting(true);
-    await onButtonClick();
-    setIsExecuting(false);
+    try{
+      await onButtonClick();
+      setIsExecuting(false);
+    } catch(error){
+      setIsExecuting(false);
+    }
   };
   return (
     <div

@@ -25,7 +25,7 @@ export const ProfileBox = ({
     <div className="flex flex-row w-full min-w-[500px] h-[100px] bg-whiteOpacity008 rounded-md border border-whiteOpacity008 justify-between">
       <div className="flex flex-row flex-1 min-w-[300px] p-[26px] items-center">
         <div className="h-[52px] w-[52px] flex rounded-md bg-whiteOpacity008 items-center justify-center">
-          <div className="h-[24px] w-[24px]">
+          <div className="h-6 w-6">
             <UserIcon
               color={
                 !userAddress

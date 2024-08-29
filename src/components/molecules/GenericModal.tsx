@@ -1,16 +1,16 @@
 import cc from "classcat";
 import { IconicButton } from "../atoms";
-import { BlockchainCTA } from "./index";
 import { TransactionErrorType } from "@/lib/wallet/error";
+import { useState } from "react";
 
 interface ModalProps {
   title: string;
   isOpen: boolean;
   onClose: () => void;
-  buttonLabel?: string;
+  buttonLabel: string;
   children: JSX.Element;
-  communicateMainCtaTxSuccess: () => void;
-  onMainCtaClick: () => Promise<`0x${string}` | TransactionErrorType | null>;
+  onButtonClick: () => void;
+  isAsync: boolean;
 }
 
 export const GenericModal = ({
@@ -19,9 +19,19 @@ export const GenericModal = ({
   onClose,
   children,
   buttonLabel,
-  onMainCtaClick,
-  communicateMainCtaTxSuccess,
+  onButtonClick,
+  isAsync,
 }: ModalProps) => {
+  const [isExecuting, setIsExecuting] = useState(false);
+  const onButtonClickAsync = async () => {
+    setIsExecuting(true);
+    try{
+      await onButtonClick();
+      setIsExecuting(false);
+    } catch(error){
+      setIsExecuting(false);
+    }
+  };
   return (
     <div
       className={cc([
@@ -34,7 +44,7 @@ export const GenericModal = ({
         onClick={(event) => {
           event.stopPropagation();
         }}
-        className="bg-secondary shadow-2xl border-white border-opacity-10 border rounded-lg w-[480px] overflow-hidden"
+        className="bg-brandBlack shadow-2xl border-white border-opacity-10 border rounded-lg w-[480px] overflow-hidden"
       >
         <div className="flex justify-between border-white border-opacity-10 items-center p-5 border-b">
           <h3 className="text-lg text-[20px] font-dm font-medium">{title}</h3>
@@ -49,14 +59,11 @@ export const GenericModal = ({
         <div className="p-5">{children}</div>
 
         <div className="p-5">
-          {buttonLabel ? (
-            <IconicButton label={buttonLabel} onClick={onMainCtaClick} />
-          ) : (
-            <BlockchainCTA
-              transactionRequest={onMainCtaClick}
-              onSuccess={communicateMainCtaTxSuccess}
-            />
-          )}
+          <IconicButton
+            label={buttonLabel}
+            onClick={isAsync ? onButtonClickAsync : onButtonClick}
+            isLoading={isExecuting}
+          />
         </div>
       </div>
     </div>

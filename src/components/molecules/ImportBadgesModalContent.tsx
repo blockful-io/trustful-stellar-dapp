@@ -1,8 +1,14 @@
 import { ReactNode } from "react";
 import { AttestationSymbol } from "../atoms/AttestationSymbol";
+import PerfectScrollbar from "react-perfect-scrollbar";
+import cc from "classcat";
 
 interface ImportBadgesModalContentProps {
-  badges: { description: string; isImported: boolean }[];
+  badges: {
+    description: string;
+    isImported: boolean | undefined;
+    assetCode: string;
+  }[];
   title: string;
   icon?: ReactNode;
 }
@@ -27,19 +33,30 @@ export const ImportBadgesModalContent = ({
               BADGES AVAILABLE
             </span>
           </div>
-          {badges.map(({ description, isImported }) => (
-            <>
-              <hr className="border-whiteOpacity008 w-full px-0 mx-0 mt-2 mb-3" />
-              <div className="px-4 flex">
-                <span className="flex-1 text-[14px]">
-                  {description}
-                </span>
-                <div>
-                  <AttestationSymbol checked={isImported}></AttestationSymbol>
+          <PerfectScrollbar className="w-full max-h-[300px]">
+            {badges.map(({ description, isImported }, index) => (
+              <div key={index}>
+                <hr className="border-whiteOpacity008 w-full px-0 mx-0 mt-2 mb-3" />
+                <div className="px-4 flex">
+                  <span
+                    className={cc([
+                      { "text-whiteOpacity05": isImported === undefined },
+                      "flex-1 text-sm",
+                    ])}
+                  >
+                    {description}
+                  </span>
+                  {isImported !== undefined && (
+                    <div>
+                      <AttestationSymbol
+                        checked={isImported}
+                      ></AttestationSymbol>
+                    </div>
+                  )}
                 </div>
               </div>
-            </>
-          ))}
+            ))}
+          </PerfectScrollbar>
         </div>
       )}
     </div>

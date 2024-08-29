@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { UserBadge, UserContext, UserContextProviderProps } from "./types";
+import { CommunityBadge } from "../community/types";
 
 const userCtx = createContext<UserContext | undefined>(undefined);
 
@@ -7,8 +8,44 @@ const UserContextProvider: React.FC<UserContextProviderProps> = (
   props: UserContextProviderProps
 ) => {
   const [userBadges, setUserBadges] = useState<UserBadge[]>([]);
+  const [userBadgesImported, setUserBadgesImported] = useState<UserBadge[]>([]);
+  const [userBadgesToImport, _setUserBadgesToImport] = useState<UserBadge[]>(
+    []
+  );
+  const setUserBadgesToImport = (
+    _userBadges: UserBadge[],
+    _userBadgesImported: UserBadge[],
+    _communityBadges: CommunityBadge[]
+  ) => {
+    const _userBadgesToImport = _userBadges.filter(({ assetCode }) => {
+      if (!assetCode) return false;
+      const communityIncludesBadge = _communityBadges.some(
+        ({ assetCode: communityBadgeAssetCode }) => {
+          communityBadgeAssetCode.toLocaleLowerCase() ===
+            assetCode.toLocaleLowerCase();
+        }
+      );
+      const userBadgesImportedIncludesBadge = _userBadgesImported.some(
+        ({ assetCode: importedBadgeAssetCode }) =>
+          !!importedBadgeAssetCode &&
+          assetCode.toLocaleLowerCase() ===
+            importedBadgeAssetCode.toLocaleLowerCase()
+      );
+      return communityIncludesBadge && !userBadgesImportedIncludesBadge;
+    });
+    _setUserBadgesToImport(_userBadgesToImport);
+  };
   return (
-    <userCtx.Provider value={{ userBadges, setUserBadges }}>
+    <userCtx.Provider
+      value={{
+        userBadges,
+        setUserBadges,
+        userBadgesImported,
+        setUserBadgesImported,
+        userBadgesToImport,
+        setUserBadgesToImport,
+      }}
+    >
       {props.children}
     </userCtx.Provider>
   );

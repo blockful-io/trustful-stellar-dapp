@@ -29,7 +29,7 @@ export const SearchBar = (props: SearchBarProps) => {
         icon={<SearchIcon />}
         iconPosition={IconPosition.LEFT}
         onClick={() => props.onButtonClick(props.input)}
-      ></IconicButton>
+      />
     </div>
   );
 };

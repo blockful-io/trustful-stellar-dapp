@@ -19,18 +19,18 @@ const UserContextProvider: React.FC<UserContextProviderProps> = (
   ) => {
     const _userBadgesToImport = _userBadges.filter(({ assetCode }) => {
       if (!assetCode) return false;
-      const communityIncludesBadge =
-        _communityBadges.findIndex(({ assetCode: communityBadgeAssetCode }) => {
+      const communityIncludesBadge = _communityBadges.some(
+        ({ assetCode: communityBadgeAssetCode }) => {
           communityBadgeAssetCode.toLocaleLowerCase() ===
             assetCode.toLocaleLowerCase();
-        }) > 0;
-      const userBadgesImportedIncludesBadge =
-        _userBadgesImported.findIndex(
-          ({ assetCode: importedBadgeAssetCode }) =>
-            !!importedBadgeAssetCode &&
-            assetCode.toLocaleLowerCase() ===
-              importedBadgeAssetCode.toLocaleLowerCase()
-        ) > 0;
+        }
+      );
+      const userBadgesImportedIncludesBadge = _userBadgesImported.some(
+        ({ assetCode: importedBadgeAssetCode }) =>
+          !!importedBadgeAssetCode &&
+          assetCode.toLocaleLowerCase() ===
+            importedBadgeAssetCode.toLocaleLowerCase()
+      );
       return communityIncludesBadge && !userBadgesImportedIncludesBadge;
     });
     _setUserBadgesToImport(_userBadgesToImport);

@@ -41,7 +41,7 @@ export const ImportBadgesModalContent = ({
                   <span
                     className={cc([
                       { "text-whiteOpacity05": isImported === undefined },
-                      "flex-1 text-[14px]",
+                      "flex-1 text-sm",
                     ])}
                   >
                     {description}

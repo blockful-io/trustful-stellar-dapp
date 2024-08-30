@@ -11,7 +11,7 @@ const meta = {
   args: {
     placeholder: "",
     onButtonClick: (value) => {
-      console.log(value);
+      alert(value);
     },
   },
 } satisfies Meta<typeof SearchBar>;

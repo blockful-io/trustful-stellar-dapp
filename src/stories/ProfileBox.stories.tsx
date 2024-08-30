@@ -47,8 +47,8 @@ export const ProfileBoxWithNoUser: Story = {
           searchBar={
             <SearchBar
               placeholder={"Paste the address..."}
-              onButtonClick={() => {
-                console.log("onButtonClick");
+              onButtonClick={(currentValue) => {
+                alert("onButtonClick: " + currentValue);
               }}
               input={value}
               onChangeInput={setValue}
@@ -60,14 +60,13 @@ export const ProfileBoxWithNoUser: Story = {
   },
 };
 
-
 export const ProfileBoxWithUser: Story = {
   args: {
     placeholder: "Paste the address...",
     searchBar: <></>,
     isClearButtonVisible: undefined,
     userAddress: "GD6IAJEYOCPKJYTYVRJU75TXJGYUW7Z2ONMMJKXF2BFVGCMS3SQDFYWS",
-    userBadgesQuantity: 9
+    userBadgesQuantity: 9,
   },
   render: function (args) {
     const [value, setValue] = useState("");
@@ -83,8 +82,8 @@ export const ProfileBoxWithUser: Story = {
           searchBar={
             <SearchBar
               placeholder={"Paste the address..."}
-              onButtonClick={() => {
-                console.log("onButtonClick");
+              onButtonClick={(currentValue) => {
+                alert("onButtonClick: " + currentValue);
               }}
               input={value}
               onChangeInput={setValue}

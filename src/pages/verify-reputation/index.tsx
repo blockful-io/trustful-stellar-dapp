@@ -1,6 +1,9 @@
 import { UserIcon } from "@/components";
 import { IssuerTableCell } from "@/components/atoms/verify-reputation/IssuerTableCell";
-import { SearchTableEmptyScreen } from "@/components/atoms/verify-reputation/SearchTableEmptyScreen";
+import {
+  SearchTableEmptyScreen,
+  TableEmptyScreen,
+} from "@/components/atoms/TableEmptyScreen";
 import { SearchBar } from "@/components/search/SearchBar";
 import { CustomTable } from "@/components/organisms/CustomTable";
 import { ProfileBox } from "@/components/organisms/ProfileBox";
@@ -13,6 +16,8 @@ import {
 import { isValidStellarAddress } from "@/lib/stellar/isValidStellarAddress";
 import communityClient from "@/lib/http-clients/CommunityClient";
 import usersClient from "@/lib/http-clients/UsersClient";
+import { SearchIcon } from "@/components/atoms/icons/SearchIcon";
+import tailwindConfig from "tailwind.config";
 
 function VerifyReputationPage() {
   const [inputText, setInputText] = useState("");
@@ -69,7 +74,17 @@ function VerifyReputationPage() {
           }
         />
         <CustomTable
-          childrenForEmptyTable={<SearchTableEmptyScreen />}
+          childrenForEmptyTable={
+            <TableEmptyScreen
+              icon={
+                <SearchIcon
+                  color={tailwindConfig.theme.extend.colors.whiteOpacity05}
+                ></SearchIcon>
+              }
+              title="Search to start"
+              description="Check a user's reputation by searching for their address"
+            />
+          }
           className="mt-6"
           headers={["badgeName", "issuer"]}
           data={searchedUserBadges}

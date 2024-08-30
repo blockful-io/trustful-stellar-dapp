@@ -1,5 +1,5 @@
 import { SearchIcon } from "@/components/atoms/icons/SearchIcon";
-import { SearchTableEmptyScreen } from "@/components/atoms/verify-reputation/SearchTableEmptyScreen";
+import { SearchTableEmptyScreen } from "@/components/atoms/TableEmptyScreen";
 import { SearchBar } from "@/components/search/SearchBar";
 import { CustomTable } from "@/components/organisms/CustomTable";
 import { getEllipsedAddress } from "@/lib/utils/getEllipsedAddress";

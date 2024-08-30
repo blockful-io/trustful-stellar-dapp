@@ -44,11 +44,11 @@ export const AttestationBadge: React.FC<AttestationBadgeProps> = ({
         <div className="flex-1 m-4 ml-6 h-[25px]">
           <div
             className={cc([
-              { hidden: imported === false || imported === undefined},
+              { hidden: !imported },
               "flex text-xs font-medium justify-end",
             ])}
           >
-            <div className="w-[12px] mr-2">
+            <div className="w-3 mr-2">
               <CheckIcon />
             </div>
             <span className="text-brandGreen">IMPORTED</span>

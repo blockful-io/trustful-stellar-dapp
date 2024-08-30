@@ -1,7 +1,5 @@
-import { UserIcon } from "@/components";
 import { IssuerTableCell } from "@/components/atoms/verify-reputation/IssuerTableCell";
 import {
-  SearchTableEmptyScreen,
   TableEmptyScreen,
 } from "@/components/atoms/TableEmptyScreen";
 import { SearchBar } from "@/components/search/SearchBar";

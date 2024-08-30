@@ -1,4 +1,4 @@
-import { SearchBar } from "@/components/molecules/SearchBar";
+import { SearchBar } from "@/components/search/SearchBar";
 import { ProfileBox } from "@/components/organisms/ProfileBox";
 import { Meta, StoryObj } from "@storybook/react/*";
 import { useState } from "react";

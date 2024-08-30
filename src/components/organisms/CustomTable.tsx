@@ -37,17 +37,13 @@ export const CustomTable = <T extends Record<string, any>>({
             return (
               <tr>
                 {headers.map((header) => {
-                  return (
-                    <td className="flex-1 py-4 px-7">
-                      {row[header] as ReactNode}
-                    </td>
-                  );
+                  return <td className="px-7 py-4">{row[header] as ReactNode}</td>;
                 })}
               </tr>
             );
           })
         ) : (
-          <tr>
+          <tr className={cc([{ "hidden": data.length > 0 }])}>
             <td colSpan={headers.length}>{childrenForEmptyTable}</td>
           </tr>
         )}

@@ -1,33 +1,70 @@
 import { UserIcon } from "@/components";
 import { IssuerTableCell } from "@/components/atoms/verify-reputation/IssuerTableCell";
 import { SearchTableEmptyScreen } from "@/components/atoms/verify-reputation/SearchTableEmptyScreen";
-import { SearchBar } from "@/components/molecules/SearchBar";
+import { SearchBar } from "@/components/search/SearchBar";
 import { CustomTable } from "@/components/organisms/CustomTable";
 import { ProfileBox } from "@/components/organisms/ProfileBox";
 import { PageTemplate } from "@/components/templates/PageTemplate";
 import { useState } from "react";
+import {
+  SearchContextProvider,
+  useSearchContext,
+} from "@/components/search/Context";
+import { isValidStellarAddress } from "@/lib/stellar/isValidStellarAddress";
+import communityClient from "@/lib/http-clients/CommunityClient";
+import usersClient from "@/lib/http-clients/UsersClient";
 
-export default function VerifyReputationPage() {
-  const [value, setValue] = useState("");
-  const mockIssuerAddress =
-    "GD6IAJEYOCPKJYTYVRJU75TXJGYUW7Z2ONMMJKXF2BFVGCMS3SQDFYWS";
+function VerifyReputationPage() {
+  const [inputText, setInputText] = useState("");
+  const {
+    searchedUserAddress,
+    setSearchedUserAddress,
+    setSearchedUserBadges,
+    searchedUserBadges,
+  } = useSearchContext();
+  const onSearch = async (address: string) => {
+    if (!isValidStellarAddress(address)) {
+      setInputText("");
+      alert("Invalid User Address");
+      return false;
+    }
+    setSearchedUserAddress(address);
+    const communityBadges = await communityClient.getCommunityBadges();
+    const userTrustfulBadges = await usersClient.getBadgesTrustful(address);
+    const userTrustfulBadgesAssetCodes = userTrustfulBadges.map(
+      ({ assetCode }) => assetCode
+    );
+    const userCommunityBadges = communityBadges.filter(({ assetCode }) =>
+      userTrustfulBadgesAssetCodes.includes(assetCode)
+    );
+    const searchedUserBadges = userCommunityBadges.map((badge) => ({
+      badgeName: (
+        <div className="flex flex-row items-center h-7">
+          {badge.description}
+        </div>
+      ),
+      issuer: <IssuerTableCell issuerAddress={badge.issuer} />,
+    }));
+    setSearchedUserBadges(searchedUserBadges);
+  };
   return (
     <PageTemplate className="h-full" title={"Verify Reputation"}>
       <div className="p-12 pt-2">
         <ProfileBox
-          userAddress=""
+          userAddress={searchedUserAddress}
+          userBadgesQuantity={searchedUserBadges.length}
           onClear={() => {
-            setValue("");
+            setInputText("");
+            setSearchedUserAddress("");
+            setSearchedUserBadges([]);
           }}
-          isClearButtonVisible={value !== ""}
+          isClearButtonVisible={!!searchedUserAddress}
           searchBar={
             <SearchBar
               placeholder={"Paste the address..."}
-              onButtonClick={(currentValue) => {
-                alert("onButtonClick: " + currentValue);
-              }}
-              inputText={value}
-              onChangeInputText={setValue}
+              onButtonClick={onSearch}
+              inputText={inputText}
+              onChangeInputText={setInputText}
             />
           }
         />
@@ -35,30 +72,19 @@ export default function VerifyReputationPage() {
           childrenForEmptyTable={<SearchTableEmptyScreen />}
           className="mt-6"
           headers={["badgeName", "issuer"]}
-          data={[
-            {
-              badgeName: "Stellar Quests",
-              issuer: <IssuerTableCell userAddress={mockIssuerAddress} />,
-            },
-            {
-              badgeName: "Stellar Quests",
-              issuer: <IssuerTableCell userAddress={mockIssuerAddress} />,
-            },
-            {
-              badgeName: "Stellar Quests",
-              issuer: <IssuerTableCell userAddress={mockIssuerAddress} />,
-            },
-            {
-              badgeName: "Stellar Quests",
-              issuer: <IssuerTableCell userAddress={mockIssuerAddress} />,
-            },
-            {
-              badgeName: "Stellar Quests",
-              issuer: <IssuerTableCell userAddress={mockIssuerAddress} />,
-            },
-          ]}
+          data={searchedUserBadges}
         ></CustomTable>
       </div>
     </PageTemplate>
+  );
+}
+
+export default function VerifyReputationPageWithContext(
+  props: React.ComponentPropsWithRef<"div">
+) {
+  return (
+    <SearchContextProvider>
+      <VerifyReputationPage {...props}></VerifyReputationPage>
+    </SearchContextProvider>
   );
 }

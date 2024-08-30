@@ -2,6 +2,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import "@/styles/globals.css";
 import "@/styles/card-link.css";
 import "@/styles/content-tabs.css";
+import "@/styles/custom-table.css";
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import "tailwindcss/tailwind.css";
 

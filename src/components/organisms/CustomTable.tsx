@@ -6,7 +6,7 @@ export interface CustomTableProps<T extends Record<string, any>>
   extends React.ComponentPropsWithoutRef<"div"> {
   childrenForEmptyTable: ReactNode;
   data: T[];
-  headers: (keyof T)[];
+  headers: string[];
 }
 
 export const CustomTable = <T extends Record<string, any>>({
@@ -16,34 +16,41 @@ export const CustomTable = <T extends Record<string, any>>({
   headers,
 }: CustomTableProps<T>): ReactElement => {
   return (
-    <table className="custom-table bg-whiteOpacity008">
+    <table className={cc(["custom-table bg-whiteOpacity008", className])}>
       <thead className="rounded-md">
         <tr>
           {headers.map((header) => {
             return (
               <th className="text-left py-4 px-7">
                 <span className="text-whiteOpacity05 text-sm font-light">
-                  {camelCaseToUpperCaseWords(header as string) as ReactNode}
+                  {camelCaseToUpperCaseWords(header)}
                 </span>
               </th>
             );
           })}
         </tr>
       </thead>
-      <tbody>
-        {data.map((row) => {
-          return (
-            <tr>
-              {headers.map((header) => {
-                return (
-                  <td className="flex-1 py-4 px-7">
-                    {row[header] as ReactNode}
-                  </td>
-                );
-              })}
-            </tr>
-          );
-        })}
+
+      <tbody className="w-full">
+        {data.length > 0 ? (
+          data.map((row) => {
+            return (
+              <tr>
+                {headers.map((header) => {
+                  return (
+                    <td className="flex-1 py-4 px-7">
+                      {row[header] as ReactNode}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })
+        ) : (
+          <tr>
+            <td colSpan={headers.length}>{childrenForEmptyTable}</td>
+          </tr>
+        )}
       </tbody>
     </table>
   );

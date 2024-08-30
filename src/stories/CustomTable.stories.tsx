@@ -1,8 +1,11 @@
+import { SearchIcon } from "@/components/atoms/icons/SearchIcon";
+import { SearchTableEmptyScreen } from "@/components/atoms/verify-reputation/SearchTableEmptyScreen";
 import { SearchBar } from "@/components/molecules/SearchBar";
 import { CustomTable } from "@/components/organisms/CustomTable";
 import { getEllipsedAddress } from "@/lib/utils/getEllipsedAddress";
 import { Meta, StoryObj } from "@storybook/react/*";
 import { useState } from "react";
+import tailwindConfig from "tailwind.config";
 
 type TableObject = {
   badgeName: string;
@@ -26,7 +29,6 @@ type Story = StoryObj<typeof meta>;
 
 export const CustomTableWithCustomCells: Story = {
   args: {
-    childrenForEmptyTable: "Paste the address...",
     headers: ["badgeName", "issuer"],
     data: [
       {
@@ -67,6 +69,21 @@ export const CustomTableWithCustomCells: Story = {
         ),
       },
     ] as TableObject[],
+  },
+  render: (args) => {
+    return (
+      <div className="w-[800px]">
+        <CustomTable {...args}></CustomTable>
+      </div>
+    );
+  },
+};
+
+export const CustomTableWithEmptyData: Story = {
+  args: {
+    childrenForEmptyTable: <SearchTableEmptyScreen />,
+    headers: ["badgeName", "issuer"],
+    data: [],
   },
   render: (args) => {
     return (

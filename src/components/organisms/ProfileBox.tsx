@@ -46,7 +46,6 @@ export const ProfileBox = ({
               <div
                 className="w-3 h-3 hover:cursor-pointer items-center justify-center"
                 onClick={() => {
-                  console.log("here");
                   if (!navigator.clipboard) {
                     toast.error(
                       "Copy to clipboard not allowed by the navigator"

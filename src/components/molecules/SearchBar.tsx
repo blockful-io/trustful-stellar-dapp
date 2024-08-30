@@ -22,14 +22,14 @@ export const SearchBar = (props: SearchBarProps) => {
         value={props.input}
         onChange={(e) => props.onChangeInput(e.target.value)}
         placeholder={props.placeholder}
-      ></input>
+      />
       <IconicButton
         className="rounded-r-lg rounded-l-none w-max"
         label="Search"
         icon={<SearchIcon />}
         iconPosition={IconPosition.LEFT}
         onClick={() => props.onButtonClick(props.input)}
-      ></IconicButton>
+      />
     </div>
   );
 };

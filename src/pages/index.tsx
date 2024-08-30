@@ -51,7 +51,7 @@ const HomePage = () => {
                   color={tailwindConfig.theme.extend.colors.brandBlack}
                 />
               }
-              onClick={() => console.log("verify reputation")}
+              onClick={() => router.push('/verify-reputation')}
             />
           </div>
         </div>

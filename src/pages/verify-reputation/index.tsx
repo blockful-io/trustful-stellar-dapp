@@ -1,7 +1,5 @@
 import { IssuerTableCell } from "@/components/atoms/verify-reputation/IssuerTableCell";
-import {
-  TableEmptyScreen,
-} from "@/components/atoms/TableEmptyScreen";
+import { TableEmptyScreen } from "@/components/atoms/TableEmptyScreen";
 import { SearchBar } from "@/components/search/SearchBar";
 import { CustomTable } from "@/components/organisms/CustomTable";
 import { ProfileBox } from "@/components/organisms/ProfileBox";
@@ -45,7 +43,12 @@ function VerifyReputationPage() {
     const searchedUserBadges = userCommunityBadges.map((badge) => ({
       badgeName: (
         <div className="flex flex-row items-center h-7">
-          {badge.description}
+          <div className="flex flex-col">
+            <span>{badge.description}</span>
+            <span className="text-sm text-whiteOpacity05">
+              Points: {badge.score}
+            </span>
+          </div>
         </div>
       ),
       issuer: <IssuerTableCell issuerAddress={badge.issuer} />,

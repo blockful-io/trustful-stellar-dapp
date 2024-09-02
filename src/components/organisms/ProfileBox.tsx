@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 interface ProfileBoxProps extends React.ComponentPropsWithoutRef<"div"> {
   userAddress?: string;
   userBadgesQuantity?: number;
+  userScore?: number;
   onClear: () => void;
   isClearButtonVisible: boolean;
   searchBar: ReactNode;
@@ -17,6 +18,7 @@ interface ProfileBoxProps extends React.ComponentPropsWithoutRef<"div"> {
 export const ProfileBox = ({
   userAddress,
   userBadgesQuantity,
+  userScore,
   onClear,
   isClearButtonVisible,
   searchBar,
@@ -60,11 +62,24 @@ export const ProfileBox = ({
               </div>
             )}
           </div>
-          <span className="text-whiteOpacity05 text-sm font-normal">
-            {!!userBadgesQuantity && userBadgesQuantity > 1
-              ? `${userBadgesQuantity} badges`
-              : `${userBadgesQuantity || "0"} badge`}
-          </span>
+          <div className="flex flex-row gap-4">
+            {userBadgesQuantity !== undefined ? (
+              <span className="text-whiteOpacity05 text-sm font-normal">
+                {userBadgesQuantity > 1
+                  ? `${userBadgesQuantity} badges`
+                  : `${userBadgesQuantity || "0"} badge`}
+              </span>
+            ) : (
+              <></>
+            )}
+            {userScore !== undefined ? (
+              <span className="text-whiteOpacity05 text-sm font-normal">
+                {userScore} points
+              </span>
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
       </div>
       <div className="w-max min-w-[200px] flex flex-row h-full items-center pr-[26px]">

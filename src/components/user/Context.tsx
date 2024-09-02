@@ -1,17 +1,38 @@
-import React, { createContext, useContext, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { UserBadge, UserContext, UserContextProviderProps } from "./types";
 import { CommunityBadge } from "../community/types";
+import usersClient from "@/lib/http-clients/UsersClient";
+import { useAuthContext } from "../auth/Context";
 
 const userCtx = createContext<UserContext | undefined>(undefined);
 
 const UserContextProvider: React.FC<UserContextProviderProps> = (
   props: UserContextProviderProps
 ) => {
+  const { userAddress } = useAuthContext();
   const [userBadges, setUserBadges] = useState<UserBadge[]>([]);
+  const [userScore, setUserScore] = useState<number>();
   const [userBadgesImported, setUserBadgesImported] = useState<UserBadge[]>([]);
   const [userBadgesToImport, _setUserBadgesToImport] = useState<UserBadge[]>(
     []
   );
+  const fetchScore = useCallback(async () => {
+    if (!!userAddress) {
+      const newScore = await usersClient.getScore(userAddress);
+      setUserScore(newScore);
+    }
+  }, [userAddress]);
+
+  useEffect(() => {
+    fetchScore();
+  }, [fetchScore]);
+
   const setUserBadgesToImport = (
     _userBadges: UserBadge[],
     _userBadgesImported: UserBadge[],
@@ -40,6 +61,8 @@ const UserContextProvider: React.FC<UserContextProviderProps> = (
       value={{
         userBadges,
         setUserBadges,
+        userScore,
+        setUserScore,
         userBadgesImported,
         setUserBadgesImported,
         userBadgesToImport,

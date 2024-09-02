@@ -23,7 +23,9 @@ function VerifyReputationPage() {
     searchedUserAddress,
     setSearchedUserAddress,
     setSearchedUserBadges,
+    setSearchedUserScore,
     searchedUserBadges,
+    searchedUserScore,
   } = useSearchContext();
   const onSearch = async (address: string) => {
     if (!isValidStellarAddress(address)) {
@@ -49,13 +51,16 @@ function VerifyReputationPage() {
       issuer: <IssuerTableCell issuerAddress={badge.issuer} />,
     }));
     setSearchedUserBadges(searchedUserBadges);
+    const userScore = await usersClient.getScore(address);
+    setSearchedUserScore(userScore);
   };
   return (
     <PageTemplate className="h-full" title={"Verify Reputation"}>
       <div className="p-12 pt-2">
         <ProfileBox
           userAddress={searchedUserAddress}
-          userBadgesQuantity={searchedUserBadges.length}
+          userBadgesQuantity={searchedUserBadges?.length}
+          userScore={searchedUserScore}
           onClear={() => {
             setInputText("");
             setSearchedUserAddress("");

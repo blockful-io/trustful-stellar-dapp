@@ -5,7 +5,7 @@ import React, { ReactElement, ReactNode, useState } from "react";
 export interface CustomTableProps<T extends Record<string, any>>
   extends React.ComponentPropsWithoutRef<"div"> {
   childrenForEmptyTable: ReactNode;
-  data: T[];
+  data?: T[];
   headers: string[];
 }
 
@@ -32,18 +32,20 @@ export const CustomTable = <T extends Record<string, any>>({
       </thead>
 
       <tbody className="w-full">
-        {data.length > 0 ? (
+        {!!data && data.length > 0 ? (
           data.map((row) => {
             return (
               <tr>
                 {headers.map((header) => {
-                  return <td className="px-7 py-4">{row[header] as ReactNode}</td>;
+                  return (
+                    <td className="px-7 py-4">{row[header] as ReactNode}</td>
+                  );
                 })}
               </tr>
             );
           })
         ) : (
-          <tr className={cc([{ "hidden": data.length > 0 }])}>
+          <tr className={cc([{ hidden: !!data && data.length > 0 }])}>
             <td colSpan={headers.length}>{childrenForEmptyTable}</td>
           </tr>
         )}

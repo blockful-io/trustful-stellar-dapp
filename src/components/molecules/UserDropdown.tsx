@@ -1,8 +1,6 @@
 import { useState, useRef, useEffect } from "react";
-import { Address } from "viem";
 import { DisconnectIcon, UserIcon } from "@/components/atoms";
 import { useAuthContext } from "@/components/auth/Context";
-import { kit } from "../auth/ConnectStellarWallet";
 import tailwindConfig from "tailwind.config";
 import cc from "classcat";
 import { getEllipsedAddress } from "@/lib/utils/getEllipsedAddress";
@@ -41,12 +39,10 @@ export const UserDropdown = () => {
         <div
           className={cc([
             {
-              "text-brandWhite border": !isOpen,
+              "text-brandWhite border bg-whiteOpacity008": !isOpen,
               "text-brandBlack bg-brandGreen": isOpen,
-              "bg-brandGreen": isOpen,
-              "border": !isOpen
             },
-            "border-whiteOpacity05 rounded-lg p-2",
+            "border-whiteOpacity008 rounded-lg p-2",
           ])}
         >
           <div className="flex items-center justify-center gap-2">

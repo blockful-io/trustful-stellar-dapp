@@ -9,6 +9,7 @@ export class UserClient {
   static badgesBySetPath = "users/badges/bySet";
   static availableClaimableBalancesPath = "users/available-claimable-balances";
   static scorePath = "users/score";
+  static defaultCommunity = 'stellar'
 
   async getBadges(publicKey: string): Promise<UserBadge[]> {
     if (!publicKey) {
@@ -65,13 +66,18 @@ export class UserClient {
     );
   }
 
-  getScore(publicKey: string) {
+  async getScore(publicKey: string, community?: string) {
     if (!publicKey) {
       throw new Error("UserClient getScore: publicKey empty or invalid");
     }
-    return httpClient.get<any, { publicKey: string }>(UserClient.scorePath, {
-      publicKey,
-    });
+    const { totalScore } = await httpClient.get<any, { publicKey: string, community: string }>(
+      UserClient.scorePath,
+      {
+        publicKey,
+        community: community ? community : UserClient.defaultCommunity
+      }
+    );
+    return totalScore;
   }
 }
 

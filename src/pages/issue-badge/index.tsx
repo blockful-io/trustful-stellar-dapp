@@ -83,10 +83,20 @@ export default function IssueBadgePage() {
       return undefined;
     }
     // TODO: Compare user trustful and normal badges with badge set badges.
-    const needToImportBadges =
-      getModalBadges(questName).filter(({ isImported }) => isImported === false)
-        .length > 0;
+    const needToImportBadges = getModalBadges(questName).some(
+      ({ isImported }) => isImported === false
+    );
     return !needToImportBadges;
+  };
+
+  const isImportButtonDisabled = (questName: string) => {
+    if (!userAddress) {
+      return true;
+    }
+    const areBadgesToImport = getModalBadges(questName).some(
+      ({ isImported }) => isImported === false
+    );
+    return !areBadgesToImport;
   };
 
   const importBadges = async () => {
@@ -190,6 +200,7 @@ export default function IssueBadgePage() {
           onButtonClick={async () => {
             await importBadges();
           }}
+          disabledButton={isImportButtonDisabled(selectedQuestName)}
           isAsync={true}
         >
           <ImportBadgesModalContent

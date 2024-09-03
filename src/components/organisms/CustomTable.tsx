@@ -15,6 +15,7 @@ export const CustomTable = <T extends Record<string, any>>({
   data,
   headers,
 }: CustomTableProps<T>): ReactElement => {
+  const hasRowsToDisplay = data.length > 0;
   return (
     <table className={cc(["custom-table bg-whiteOpacity008", className])}>
       <thead className="rounded-md">
@@ -32,18 +33,20 @@ export const CustomTable = <T extends Record<string, any>>({
       </thead>
 
       <tbody className="w-full">
-        {data.length > 0 ? (
+        {hasRowsToDisplay ? (
           data.map((row) => {
             return (
               <tr>
                 {headers.map((header) => {
-                  return <td className="px-7 py-4">{row[header] as ReactNode}</td>;
+                  return (
+                    <td className="px-7 py-4">{row[header] as ReactNode}</td>
+                  );
                 })}
               </tr>
             );
           })
         ) : (
-          <tr className={cc([{ "hidden": data.length > 0 }])}>
+          <tr className={cc([{ hidden: hasRowsToDisplay }])}>
             <td colSpan={headers.length}>{childrenForEmptyTable}</td>
           </tr>
         )}

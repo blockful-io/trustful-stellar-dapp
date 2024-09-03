@@ -22,7 +22,6 @@ export const SearchBar = (props: SearchBarProps) => {
         value={props.inputText}
         onChange={(e) => props.onChangeInputText(e.target.value)}
         onKeyDown={(event)=>{
-          console.log("here")
           if (event.key === 'Enter') {
             props.onButtonClick(props.inputText)
           }

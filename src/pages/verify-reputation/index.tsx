@@ -85,7 +85,7 @@ function VerifyReputationPage() {
               icon={
                 <SearchIcon
                   color={tailwindConfig.theme.extend.colors.whiteOpacity05}
-                ></SearchIcon>
+                />
               }
               title="Search to start"
               description="Check a user's reputation by searching for their address"

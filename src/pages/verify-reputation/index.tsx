@@ -55,7 +55,7 @@ function VerifyReputationPage() {
     setSearchedUserScore(userScore);
   };
   return (
-    <PageTemplate className="h-full" title={"Verify Reputation"}>
+    <PageTemplate className="h-full" title="Verify Reputation">
       <div className="p-12 pt-2">
         <ProfileBox
           userAddress={searchedUserAddress}

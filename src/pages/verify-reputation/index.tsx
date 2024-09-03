@@ -12,7 +12,7 @@ export default function VerifyReputationPage() {
   const mockIssuerAddress =
     "GD6IAJEYOCPKJYTYVRJU75TXJGYUW7Z2ONMMJKXF2BFVGCMS3SQDFYWS";
   return (
-    <PageTemplate className="h-full" title={"Verify Reputation"}>
+    <PageTemplate className="h-full" title="Verify Reputation">
       <div className="p-12 pt-2">
         <ProfileBox
           userAddress=""

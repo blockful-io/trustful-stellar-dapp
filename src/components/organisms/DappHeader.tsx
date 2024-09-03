@@ -34,7 +34,7 @@ export const DappHeader = () => {
             <div
               className={cc([
                 { "tab-active": path.includes("verify-reputation") },
-                "tab p-2 h-full px-4 items-center flex",
+                "tab p-2 px-4 items-center flex",
               ])}
               onClick={() => router.push("/verify-reputation")}
             >

@@ -2,6 +2,7 @@ import type { Preview } from "@storybook/react";
 import "@/styles/globals.css";
 import "@/styles/card-link.css";
 import "@/styles/content-tabs.css";
+import "@/styles/custom-table.css";
 import "tailwindcss/tailwind.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import { withWagmiProvider } from "./decorators";

@@ -79,7 +79,10 @@ export default function IssueBadgePage() {
   }, [fetchBadges]);
 
   const questIsFullyImported = (questName: string) => {
-    if (!userAddress) {
+    const userHasNoBadgesOfThisQuest = getModalBadges(questName).every(
+      ({ isImported }) => isImported === undefined
+    );
+    if (!userAddress || userHasNoBadgesOfThisQuest) {
       return undefined;
     }
     // TODO: Compare user trustful and normal badges with badge set badges.

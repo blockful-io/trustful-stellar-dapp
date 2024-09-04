@@ -109,6 +109,9 @@ export default function IssueBadgePage() {
   };
 
   const importBadges = async () => {
+    if (!userAddress) {
+      return;
+    }
     try {
       const assetCodesToImport = userBadgesToImport.reduce(
         (assetCodesAcc, currentBadge) => {

@@ -4,6 +4,7 @@ import { useAuthContext } from "@/components/auth/Context";
 import tailwindConfig from "tailwind.config";
 import cc from "classcat";
 import { getEllipsedAddress } from "@/lib/utils/getEllipsedAddress";
+import { clearLocalStorageUserAddress } from "@/lib/local-storage/auth";
 
 export const UserDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,9 +55,7 @@ export const UserDropdown = () => {
                   : tailwindConfig.theme.extend.colors.brandGreen
               }
             />
-            <h2>
-              {getEllipsedAddress(userAddress)}
-            </h2>
+            <h2>{getEllipsedAddress(userAddress || "")}</h2>
           </div>
         </div>
       </button>

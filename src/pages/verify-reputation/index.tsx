@@ -4,7 +4,7 @@ import { SearchBar } from "@/components/search/SearchBar";
 import { CustomTable } from "@/components/organisms/CustomTable";
 import { ProfileBox } from "@/components/organisms/ProfileBox";
 import { PageTemplate } from "@/components/templates/PageTemplate";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   SearchContextProvider,
   useSearchContext,
@@ -16,8 +16,11 @@ import { SearchIcon } from "@/components/atoms/icons/SearchIcon";
 import tailwindConfig from "tailwind.config";
 import ActivityIndicatorModal from "@/components/molecules/ActivityIndicatorModal";
 import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
 function VerifyReputationPage() {
+  const router = useRouter();
+  const { searchAddress } = router.query;
   const [inputText, setInputText] = useState("");
   const {
     searchedUserAddress,
@@ -74,6 +77,11 @@ function VerifyReputationPage() {
       setIsLoading(false);
     }
   };
+  useEffect(() => {
+    if (searchAddress && typeof searchAddress === "string") {
+      onSearch(searchAddress);
+    }
+  }, [searchAddress]);
   return (
     <PageTemplate className="h-full" title="Verify Reputation">
       <div className="p-12 pt-2">

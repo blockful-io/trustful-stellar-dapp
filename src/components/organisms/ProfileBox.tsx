@@ -63,7 +63,7 @@ export const ProfileBox = ({
           <span className="text-whiteOpacity05 text-sm font-normal">
             {!!userBadgesQuantity && userBadgesQuantity > 1
               ? `${userBadgesQuantity} badges`
-              : `${userBadgesQuantity} badge`}
+              : `${userBadgesQuantity || "0"} badge`}
           </span>
         </div>
       </div>

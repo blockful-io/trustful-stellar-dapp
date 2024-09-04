@@ -30,8 +30,6 @@ export default function IssueBadgePage() {
   const { userAddress, setUserAddress } = useAuthContext();
   const { setCommunityQuests, communityQuests } = useCommunityContext();
   const {
-    userBadges,
-    setUserBadges,
     userBadgesImported,
     setUserBadgesImported,
     userBadgesToImport,
@@ -50,7 +48,6 @@ export default function IssueBadgePage() {
       setCommunityQuests(quests);
       if (userAddress) {
         const _userBadges = await usersClient.getBadges(userAddress);
-        setUserBadges(_userBadges);
         const _userBadgesImported =
           await usersClient.getBadgesTrustful(userAddress);
         setUserBadgesImported(_userBadgesImported);
@@ -61,7 +58,6 @@ export default function IssueBadgePage() {
         );
         setIsLoading(false);
       } else {
-        setUserBadges([]);
         setUserBadgesImported([]);
         setUserBadgesToImport([], [], []);
         setIsLoading(false);
@@ -74,7 +70,6 @@ export default function IssueBadgePage() {
       });
       setIsLoading(false);
       setCommunityQuests({});
-      setUserBadges([]);
       setUserBadgesImported([]);
       setUserBadgesToImport([], [], []);
     }

@@ -24,6 +24,7 @@ import { kit } from "@/components/auth/ConnectStellarWallet";
 import { ALBEDO_ID } from "@creit.tech/stellar-wallets-kit";
 import assetClient from "@/lib/http-clients/AssetClient";
 import toast from "react-hot-toast";
+import ActivityIndicatorModal from "@/components/molecules/ActivityIndicatorModal";
 
 export default function IssueBadgePage() {
   const { userAddress, setUserAddress } = useAuthContext();
@@ -39,9 +40,11 @@ export default function IssueBadgePage() {
 
   const [isImportModalOpen, setImportModalOpen] = useState(false);
   const [selectedQuestName, setSelectedQuestName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchBadges = useCallback(async () => {
     try {
+      setIsLoading(true);
       const _communityBadges = await communityClient.getCommunityBadges();
       const quests: CommunityQuests = _.groupBy(_communityBadges, "questName");
       setCommunityQuests(quests);
@@ -56,10 +59,12 @@ export default function IssueBadgePage() {
           _userBadgesImported,
           _communityBadges
         );
+        setIsLoading(false);
       } else {
         setUserBadges([]);
         setUserBadgesImported([]);
         setUserBadgesToImport([], [], []);
+        setIsLoading(false);
       }
     } catch (error) {
       console.error(error);
@@ -67,6 +72,7 @@ export default function IssueBadgePage() {
         duration: 2000,
         position: "top-right",
       });
+      setIsLoading(false);
       setCommunityQuests({});
       setUserBadges([]);
       setUserBadgesImported([]);
@@ -241,6 +247,7 @@ export default function IssueBadgePage() {
           </div>
         </GenericModal>
       )}
+      <ActivityIndicatorModal isOpen={isLoading} />
     </PageTemplate>
   );
 }

@@ -1,6 +1,5 @@
 .custom-table {
   width: 100%;
-  height: max-content;
   table-layout: fixed;
   border-radius: 8px;
   border-collapse: separate;

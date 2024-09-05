@@ -15,8 +15,7 @@ const AuthProvider: React.FC<AuthProviderProps> = (
     if (typeof window !== "undefined") {
       if (!!userAddress) {
         setLocalStorageUserAddress(userAddress);
-      }
-      if (userAddress === "") {
+      } else if (userAddress === "") {
         clearLocalStorageUserAddress();
       }
     }

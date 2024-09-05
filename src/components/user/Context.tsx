@@ -16,7 +16,6 @@ const UserContextProvider: React.FC<UserContextProviderProps> = (
   props: UserContextProviderProps
 ) => {
   const { userAddress } = useAuthContext();
-  const [userBadges, setUserBadges] = useState<UserBadge[]>([]);
   const [userScore, setUserScore] = useState<number>();
   const [userBadgesImported, setUserBadgesImported] = useState<UserBadge[]>([]);
   const [userBadgesToImport, _setUserBadgesToImport] = useState<UserBadge[]>(
@@ -59,8 +58,6 @@ const UserContextProvider: React.FC<UserContextProviderProps> = (
   return (
     <userCtx.Provider
       value={{
-        userBadges,
-        setUserBadges,
         userScore,
         setUserScore,
         userBadgesImported,

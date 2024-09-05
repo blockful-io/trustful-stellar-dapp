@@ -24,13 +24,12 @@ import { kit } from "@/components/auth/ConnectStellarWallet";
 import { ALBEDO_ID } from "@creit.tech/stellar-wallets-kit";
 import assetClient from "@/lib/http-clients/AssetClient";
 import toast from "react-hot-toast";
+import ActivityIndicatorModal from "@/components/molecules/ActivityIndicatorModal";
 
 export default function IssueBadgePage() {
   const { userAddress, setUserAddress } = useAuthContext();
   const { setCommunityQuests, communityQuests } = useCommunityContext();
   const {
-    userBadges,
-    setUserBadges,
     userBadgesImported,
     setUserBadgesImported,
     userBadgesToImport,
@@ -39,15 +38,16 @@ export default function IssueBadgePage() {
 
   const [isImportModalOpen, setImportModalOpen] = useState(false);
   const [selectedQuestName, setSelectedQuestName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchBadges = useCallback(async () => {
     try {
+      setIsLoading(true);
       const _communityBadges = await communityClient.getCommunityBadges();
       const quests: CommunityQuests = _.groupBy(_communityBadges, "questName");
       setCommunityQuests(quests);
       if (userAddress) {
         const _userBadges = await usersClient.getBadges(userAddress);
-        setUserBadges(_userBadges);
         const _userBadgesImported =
           await usersClient.getBadgesTrustful(userAddress);
         setUserBadgesImported(_userBadgesImported);
@@ -56,10 +56,11 @@ export default function IssueBadgePage() {
           _userBadgesImported,
           _communityBadges
         );
+        setIsLoading(false);
       } else {
-        setUserBadges([]);
         setUserBadgesImported([]);
         setUserBadgesToImport([], [], []);
+        setIsLoading(false);
       }
     } catch (error) {
       console.error(error);
@@ -67,8 +68,8 @@ export default function IssueBadgePage() {
         duration: 2000,
         position: "top-right",
       });
+      setIsLoading(false);
       setCommunityQuests({});
-      setUserBadges([]);
       setUserBadgesImported([]);
       setUserBadgesToImport([], [], []);
     }
@@ -79,17 +80,33 @@ export default function IssueBadgePage() {
   }, [fetchBadges]);
 
   const questIsFullyImported = (questName: string) => {
-    if (!userAddress) {
+    const userHasNoBadgesOfThisQuest = getModalBadges(questName).every(
+      ({ isImported }) => isImported === undefined
+    );
+    if (!userAddress || userHasNoBadgesOfThisQuest) {
       return undefined;
     }
     // TODO: Compare user trustful and normal badges with badge set badges.
-    const needToImportBadges =
-      getModalBadges(questName).filter(({ isImported }) => isImported === false)
-        .length > 0;
+    const needToImportBadges = getModalBadges(questName).some(
+      ({ isImported }) => isImported === false
+    );
     return !needToImportBadges;
   };
 
+  const isImportButtonDisabled = (questName: string) => {
+    if (!userAddress) {
+      return true;
+    }
+    const areBadgesToImport = getModalBadges(questName).some(
+      ({ isImported }) => isImported === false
+    );
+    return !areBadgesToImport;
+  };
+
   const importBadges = async () => {
+    if (!userAddress) {
+      return;
+    }
     try {
       const assetCodesToImport = userBadgesToImport.reduce(
         (assetCodesAcc, currentBadge) => {
@@ -189,7 +206,9 @@ export default function IssueBadgePage() {
           }}
           onButtonClick={async () => {
             await importBadges();
+            await fetchBadges();
           }}
+          disabledButton={isImportButtonDisabled(selectedQuestName)}
           isAsync={true}
         >
           <ImportBadgesModalContent
@@ -227,6 +246,7 @@ export default function IssueBadgePage() {
           </div>
         </GenericModal>
       )}
+      <ActivityIndicatorModal isOpen={isLoading} />
     </PageTemplate>
   );
 }

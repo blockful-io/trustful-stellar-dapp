@@ -20,6 +20,7 @@ const AuthProvider: React.FC<AuthProviderProps> = (
       }
     }
   }, [userAddress]);
+  
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedUserAddress = getLocalStorageUserAddress();
@@ -28,6 +29,7 @@ const AuthProvider: React.FC<AuthProviderProps> = (
       }
     }
   }, []);
+  
   return (
     <authCtx.Provider value={{ userAddress, setUserAddress }}>
       {props.children}

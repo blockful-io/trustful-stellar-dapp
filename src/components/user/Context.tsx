@@ -41,8 +41,10 @@ const UserContextProvider: React.FC<UserContextProviderProps> = (
       if (!assetCode) return false;
       const communityIncludesBadge = _communityBadges.some(
         ({ assetCode: communityBadgeAssetCode }) => {
-          communityBadgeAssetCode.toLocaleLowerCase() ===
-            assetCode.toLocaleLowerCase();
+          return (
+            communityBadgeAssetCode.toLocaleLowerCase() ===
+            assetCode.toLocaleLowerCase()
+          );
         }
       );
       const userBadgesImportedIncludesBadge = _userBadgesImported.some(

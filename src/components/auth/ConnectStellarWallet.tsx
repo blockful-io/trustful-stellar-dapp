@@ -8,6 +8,7 @@ import {
 import cc from "classcat";
 import { UserDropdown } from "../molecules";
 import { isTestnet } from "@/lib/wallet/chains";
+import { setLocalStorageUserAddress } from "@/lib/local-storage/auth";
 
 interface ConnectWalletProps {
   customClassNames?: string;
@@ -24,7 +25,7 @@ export const ConnectStellarWallet = ({
 }: ConnectWalletProps) => {
   const { setUserAddress, userAddress } = useAuthContext();
   return userAddress ? (
-    <UserDropdown/>
+    <UserDropdown />
   ) : (
     <button
       className={cc([

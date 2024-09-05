@@ -17,7 +17,7 @@ export const PageTemplate = ({
     <div
       className={cc([
         className,
-        "flex flex-col w-full h-[calc(100vh-78px)] bg-brandBlack",
+        "flex flex-col w-full h-[calc(100vh-74px)] bg-brandBlack",
       ])}
     >
       <PerfectScrollbar className="h-full flex flex-col">

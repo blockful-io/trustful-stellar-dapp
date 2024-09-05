@@ -4,7 +4,7 @@ import { SearchBar } from "@/components/search/SearchBar";
 import { CustomTable } from "@/components/organisms/CustomTable";
 import { ProfileBox } from "@/components/organisms/ProfileBox";
 import { PageTemplate } from "@/components/templates/PageTemplate";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   SearchContextProvider,
   useSearchContext,
@@ -14,8 +14,13 @@ import communityClient from "@/lib/http-clients/CommunityClient";
 import usersClient from "@/lib/http-clients/UsersClient";
 import { SearchIcon } from "@/components/atoms/icons/SearchIcon";
 import tailwindConfig from "tailwind.config";
+import ActivityIndicatorModal from "@/components/molecules/ActivityIndicatorModal";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
 function VerifyReputationPage() {
+  const router = useRouter();
+  const { searchAddress } = router.query;
   const [inputText, setInputText] = useState("");
   const {
     searchedUserAddress,
@@ -25,38 +30,59 @@ function VerifyReputationPage() {
     searchedUserBadges,
     searchedUserScore,
   } = useSearchContext();
+  const [isLoading, setIsLoading] = useState(false);
   const onSearch = async (address: string) => {
-    if (!isValidStellarAddress(address)) {
-      setInputText("");
-      alert("Invalid User Address");
-      return false;
-    }
-    setSearchedUserAddress(address);
-    const communityBadges = await communityClient.getCommunityBadges();
-    const userTrustfulBadges = await usersClient.getBadgesTrustful(address);
-    const userTrustfulBadgesAssetCodes = userTrustfulBadges.map(
-      ({ assetCode }) => assetCode
-    );
-    const userCommunityBadges = communityBadges.filter(({ assetCode }) =>
-      userTrustfulBadgesAssetCodes.includes(assetCode)
-    );
-    const searchedUserBadges = userCommunityBadges.map((badge) => ({
-      badgeName: (
-        <div className="flex flex-row items-center h-7">
-          <div className="flex flex-col">
-            <span>{badge.description}</span>
-            <span className="text-sm text-whiteOpacity05">
-              Points: {badge.score}
-            </span>
+    try {
+      setIsLoading(true);
+      if (!isValidStellarAddress(address)) {
+        setInputText("");
+        alert("Invalid User Address");
+        return false;
+      }
+      setSearchedUserAddress(address);
+      const communityBadges = await communityClient.getCommunityBadges();
+      const userTrustfulBadges = await usersClient.getBadgesTrustful(address);
+      const userTrustfulBadgesAssetCodes = userTrustfulBadges.map(
+        ({ assetCode }) => assetCode
+      );
+      const userCommunityBadges = communityBadges.filter(({ assetCode }) =>
+        userTrustfulBadgesAssetCodes.includes(assetCode)
+      );
+      const searchedUserBadges = userCommunityBadges.map((badge) => ({
+        badgeName: (
+          <div className="flex flex-row items-center h-7">
+            <div className="flex flex-col">
+              <span>{badge.description}</span>
+              <span className="text-sm text-whiteOpacity05">
+                Points: {badge.score}
+              </span>
+            </div>
           </div>
-        </div>
-      ),
-      issuer: <IssuerTableCell issuerAddress={badge.issuer} />,
-    }));
-    setSearchedUserBadges(searchedUserBadges);
-    const userScore = await usersClient.getScore(address);
-    setSearchedUserScore(userScore);
+        ),
+        issuer: <IssuerTableCell issuerAddress={badge.issuer} />,
+      }));
+      setSearchedUserBadges(searchedUserBadges);
+      const userScore = await usersClient.getScore(address);
+      setSearchedUserScore(userScore);
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+      toast.error("Error fetching user badges", {
+        duration: 2000,
+        position: "top-right",
+      });
+      setSearchedUserAddress("");
+      setSearchedUserScore(0);
+      setSearchedUserBadges([]);
+      setIsLoading(false);
+    }
   };
+  useEffect(() => {
+    if (searchAddress && typeof searchAddress === "string") {
+      onSearch(searchAddress);
+      setInputText(searchAddress);
+    }
+  }, [searchAddress]);
   return (
     <PageTemplate className="h-full" title="Verify Reputation">
       <div className="p-12 pt-2">
@@ -96,6 +122,7 @@ function VerifyReputationPage() {
           data={searchedUserBadges}
         ></CustomTable>
       </div>
+      <ActivityIndicatorModal isOpen={isLoading} />
     </PageTemplate>
   );
 }

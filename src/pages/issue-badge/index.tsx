@@ -206,6 +206,7 @@ export default function IssueBadgePage() {
           }}
           onButtonClick={async () => {
             await importBadges();
+            await fetchBadges();
           }}
           disabledButton={isImportButtonDisabled(selectedQuestName)}
           isAsync={true}

@@ -1,6 +1,5 @@
 import cc from "classcat";
 import { IconicButton } from "../atoms";
-import { TransactionErrorType } from "@/lib/wallet/error";
 import { useState } from "react";
 
 interface ModalProps {

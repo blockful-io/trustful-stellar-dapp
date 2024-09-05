@@ -9,6 +9,7 @@ import { UserBadge, UserContext, UserContextProviderProps } from "./types";
 import { CommunityBadge } from "../community/types";
 import usersClient from "@/lib/http-clients/UsersClient";
 import { useAuthContext } from "../auth/Context";
+import toast from "react-hot-toast";
 
 const userCtx = createContext<UserContext | undefined>(undefined);
 
@@ -24,8 +25,17 @@ const UserContextProvider: React.FC<UserContextProviderProps> = (
   );
   const fetchScore = useCallback(async () => {
     if (!!userAddress) {
-      const newScore = await usersClient.getScore(userAddress);
-      setUserScore(newScore);
+      try {
+        const newScore = await usersClient.getScore(userAddress);
+        setUserScore(newScore);
+      } catch (error) {
+        console.error(error);
+        toast.error("Error getting user score", {
+          position: "top-right",
+          duration: 2000,
+        });
+        setUserScore(undefined);
+      }
     }
   }, [userAddress]);
 

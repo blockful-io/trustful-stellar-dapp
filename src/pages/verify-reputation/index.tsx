@@ -80,7 +80,7 @@ function VerifyReputationPage() {
   useEffect(() => {
     if (searchAddress && typeof searchAddress === "string") {
       onSearch(searchAddress);
-      setSearchedUserAddress(searchAddress);
+      setInputText(searchAddress);
     }
   }, [searchAddress]);
   return (

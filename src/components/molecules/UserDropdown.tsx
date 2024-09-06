@@ -4,9 +4,12 @@ import { useAuthContext } from "@/components/auth/Context";
 import tailwindConfig from "tailwind.config";
 import cc from "classcat";
 import { getEllipsedAddress } from "@/lib/utils/getEllipsedAddress";
+import { clearLocalStorageUserAddress } from "@/lib/local-storage/auth";
+import { useRouter } from "next/router";
 
 export const UserDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { setUserAddress, userAddress } = useAuthContext();
   const handleClickOutside = (event: MouseEvent) => {
@@ -54,9 +57,7 @@ export const UserDropdown = () => {
                   : tailwindConfig.theme.extend.colors.brandGreen
               }
             />
-            <h2>
-              {getEllipsedAddress(userAddress)}
-            </h2>
+            <h2>{getEllipsedAddress(userAddress || "")}</h2>
           </div>
         </div>
       </button>
@@ -69,8 +70,13 @@ export const UserDropdown = () => {
             aria-labelledby="options-menu"
           >
             <button
-              disabled
-              className="flex justify-between items-center gap-2 cursor-not-allowed p-3 text-base hover:bg-whiteOpacity05 w-full text-left transition-colors duration-300"
+              onClick={() => {
+                router.push({
+                  pathname: "/verify-reputation",
+                  query: { searchAddress: userAddress },
+                });
+              }}
+              className="flex justify-between rounded-md items-center gap-2 cursor-pointer p-3 text-base hover:bg-whiteOpacity05 w-full text-left transition-colors duration-300"
               role="menuitem"
             >
               <div className="flex items-center justify-center gap-2">
@@ -80,14 +86,10 @@ export const UserDropdown = () => {
                 />
                 <h2>Profile</h2>
               </div>
-
-              <div className="py-1 px-2 text-xs text-whiteOpacity05 text-center rounded-full bg-whiteOpacity005 bg-opacity-10">
-                Coming Soon
-              </div>
             </button>
             <button
               onClick={disconnect}
-              className="flex gap-2 items-center p-3 text-base hover:bg-whiteOpacity05 w-full transition-colors duration-300"
+              className="flex gap-2 rounded-md cursor-pointer items-center p-3 text-base hover:bg-whiteOpacity05 w-full transition-colors duration-300"
               role="menuitem"
             >
               <DisconnectIcon

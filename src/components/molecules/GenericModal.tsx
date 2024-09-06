@@ -10,6 +10,7 @@ interface ModalProps {
   children: JSX.Element;
   onButtonClick: () => void;
   isAsync: boolean;
+  disabledButton?: boolean;
 }
 
 export const GenericModal = ({
@@ -20,6 +21,7 @@ export const GenericModal = ({
   buttonLabel,
   onButtonClick,
   isAsync,
+  disabledButton,
 }: ModalProps) => {
   const [isExecuting, setIsExecuting] = useState(false);
   const onButtonClickAsync = async () => {
@@ -62,6 +64,7 @@ export const GenericModal = ({
             label={buttonLabel}
             onClick={isAsync ? onButtonClickAsync : onButtonClick}
             isLoading={isExecuting}
+            disabled={!!disabledButton}
           />
         </div>
       </div>

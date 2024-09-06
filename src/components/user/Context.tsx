@@ -17,7 +17,6 @@ const UserContextProvider: React.FC<UserContextProviderProps> = (
   props: UserContextProviderProps
 ) => {
   const { userAddress } = useAuthContext();
-  const [userBadges, setUserBadges] = useState<UserBadge[]>([]);
   const [userScore, setUserScore] = useState<number>();
   const [userBadgesImported, setUserBadgesImported] = useState<UserBadge[]>([]);
   const [userBadgesToImport, _setUserBadgesToImport] = useState<UserBadge[]>(
@@ -52,8 +51,10 @@ const UserContextProvider: React.FC<UserContextProviderProps> = (
       if (!assetCode) return false;
       const communityIncludesBadge = _communityBadges.some(
         ({ assetCode: communityBadgeAssetCode }) => {
-          communityBadgeAssetCode.toLocaleLowerCase() ===
-            assetCode.toLocaleLowerCase();
+          return (
+            communityBadgeAssetCode.toLocaleLowerCase() ===
+            assetCode.toLocaleLowerCase()
+          );
         }
       );
       const userBadgesImportedIncludesBadge = _userBadgesImported.some(
@@ -69,8 +70,6 @@ const UserContextProvider: React.FC<UserContextProviderProps> = (
   return (
     <userCtx.Provider
       value={{
-        userBadges,
-        setUserBadges,
         userScore,
         setUserScore,
         userBadgesImported,

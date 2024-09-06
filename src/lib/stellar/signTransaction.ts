@@ -68,9 +68,38 @@ export const sendSignedTransaction = async (
       return res.hash;
     }
   } catch (error) {
-    if (error instanceof StellarSdk.NetworkError) {
-      console.error(error?.response.data);
-      throw new Error("Transaction Failed: " + error.message);
+    if (error === undefined) {
+      throw new Error("Undefined Error");
+    } else if (
+      (error as StellarSdk.NetworkError)?.response?.data?.status === 400
+    ) {
+      if (
+        (error as StellarSdk.NetworkError)?.response?.data?.title.includes(
+          "Transaction Failed"
+        )
+      ) {
+        const errorData = (error as StellarSdk.BadRequestError).response
+          ?.data as StellarSdk.Horizon.HorizonApi.ErrorResponseData.TransactionFailed;
+        const isLowReserveError =
+          errorData.extras.result_codes.operations.includes("op_low_reserve");
+        if (isLowReserveError) {
+          throw new Error(
+            "Transaction Failed: Your XLM reserve is too low to submit this transaction"
+          );
+        } else {
+          throw new Error(
+            "Transaction Failed: " + (error as StellarSdk.NetworkError)?.message
+          );
+        }
+      }
+    } else if (
+      (error as StellarSdk.NetworkError)?.response?.data?.status === 429
+    ) {
+      throw new Error("Too many requests, try again later");
+    } else if (
+      (error as StellarSdk.NetworkError)?.response?.data?.status === 500
+    ) {
+      throw new Error("Internal Server Error, try again later");
     }
     throw error;
   }

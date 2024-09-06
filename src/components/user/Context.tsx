@@ -35,6 +35,8 @@ const UserContextProvider: React.FC<UserContextProviderProps> = (
         });
         setUserScore(undefined);
       }
+    } else if (userAddress === "") {
+      setUserScore(undefined);
     }
   }, [userAddress]);
 

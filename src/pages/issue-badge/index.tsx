@@ -93,35 +93,42 @@ export default function IssueBadgePage() {
     return !needToImportBadges;
   };
 
-  const isImportButtonDisabled = (questName: string) => {
-    if (!userAddress) {
-      return true;
-    }
-    const areBadgesToImport = getModalBadges(questName).some(
-      ({ isImported }) => isImported === false
-    );
-    return !areBadgesToImport;
-  };
+  // This function will not be used while the import all badges functionality is not available
+  // const isImportButtonDisabled = (questName: string) => {
+  //   if (!userAddress) {
+  //     return true;
+  //   }
+  //   const areBadgesToImport = getModalBadges(questName).some(
+  //     ({ isImported }) => isImported === false
+  //   );
+  //   return !areBadgesToImport;
+  // };
 
-  const importBadges = async () => {
+  const importBadges = async (assetCode?: string) => {
     if (!userAddress) {
       return;
     }
     try {
-      const assetCodesToImport = userBadgesToImport.reduce(
-        (assetCodesAcc, currentBadge) => {
-          if (currentBadge.assetCode) {
-            assetCodesAcc.push(currentBadge.assetCode);
-          }
-          return assetCodesAcc;
-        },
-        [] as string[]
-      );
+      let assetCodesToImport;
+      if (!assetCode) {
+        assetCodesToImport = userBadgesToImport.reduce(
+          (assetCodesAcc, currentBadge) => {
+            if (currentBadge.assetCode) {
+              assetCodesAcc.push(currentBadge.assetCode);
+            }
+            return assetCodesAcc;
+          },
+          [] as string[]
+        );
+      } else {
+        assetCodesToImport = [assetCode];
+      }
       const transaction = await assetClient.postAsset(
         userAddress,
         assetCodesToImport
       );
       await sendSignedTransaction(transaction, userAddress);
+      await fetchBadges();
       toast.success("The badges were imported with success");
     } catch (error: unknown) {
       if (
@@ -199,7 +206,7 @@ export default function IssueBadgePage() {
       {userAddress ? (
         <GenericModal
           isOpen={isImportModalOpen}
-          buttonLabel="Import"
+          buttonLabel="Import All (Coming Soon)"
           title="Import attestations"
           onClose={() => {
             setImportModalOpen(false);
@@ -208,13 +215,14 @@ export default function IssueBadgePage() {
             await importBadges();
             await fetchBadges();
           }}
-          disabledButton={isImportButtonDisabled(selectedQuestName)}
+          disabledButton={true}
           isAsync={true}
         >
           <ImportBadgesModalContent
             badges={getModalBadges(selectedQuestName)}
             title="Stellar Quest"
             icon={<StarIcon></StarIcon>}
+            importSingleAsset={importBadges}
           />
         </GenericModal>
       ) : (

@@ -25,6 +25,10 @@ const UserContextProvider: React.FC<UserContextProviderProps> = (
     if (!!userAddress) {
       const newScore = await usersClient.getScore(userAddress);
       setUserScore(newScore);
+    } else if (userAddress === "") {
+      setUserScore(undefined);
+      setUserBadgesImported([]);
+      _setUserBadgesToImport([]);
     }
   }, [userAddress]);
 

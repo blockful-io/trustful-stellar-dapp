@@ -108,15 +108,48 @@ export const ImportBadgesModal: Story = {
     children: (
       <ImportBadgesModalContent
         badges={[
-          { description: "L1: Payment Operations", isImported: true },
-          { description: "L2: Configuration Operations", isImported: true },
-          { description: "L3: Advanced Operations", isImported: false },
-          { description: "Side Quest 1", isImported: true },
-          { description: "Side Quest 2", isImported: false },
-          { description: "Side Quest 3", isImported: false },
+          {
+            description: "L1: Payment Operations",
+            isImported: true,
+            assetCode: "1",
+            score: 3,
+          },
+          {
+            description: "L2: Configuration Operations",
+            isImported: true,
+            assetCode: "1",
+            score: 3,
+          },
+          {
+            description: "L3: Advanced Operations",
+            isImported: false,
+            assetCode: "1",
+            score: 3,
+          },
+          {
+            description: "Side Quest 1",
+            isImported: true,
+            assetCode: "1",
+            score: 3,
+          },
+          {
+            description: "Side Quest 2",
+            isImported: false,
+            assetCode: "1",
+            score: 3,
+          },
+          {
+            description: "Side Quest 3",
+            isImported: false,
+            assetCode: "1",
+            score: 3,
+          },
         ]}
         title="Stellar Quest"
         icon={<StarIcon></StarIcon>}
+        importSingleAsset={(assetCode) => {
+          console.log(assetCode);
+        }}
       />
     ),
   },

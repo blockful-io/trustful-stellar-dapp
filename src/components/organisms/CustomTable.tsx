@@ -5,7 +5,7 @@ import React, { ReactElement, ReactNode, useState } from "react";
 export interface CustomTableProps<T extends Record<string, any>>
   extends React.ComponentPropsWithoutRef<"div"> {
   childrenForEmptyTable: ReactNode;
-  data: T[];
+  data?: T[];
   headers: string[];
 }
 
@@ -15,7 +15,7 @@ export const CustomTable = <T extends Record<string, any>>({
   data,
   headers,
 }: CustomTableProps<T>): ReactElement => {
-  const hasRowsToDisplay = data.length > 0;
+  const hasRowsToDisplay = !!data && data.length > 0;
   return (
     <table className={cc(["custom-table bg-whiteOpacity008", className])}>
       <thead className="rounded-md">

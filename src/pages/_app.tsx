@@ -1,13 +1,9 @@
-import "@rainbow-me/rainbowkit/styles.css";
 import "@/styles/globals.css";
 import "@/styles/card-link.css";
 import "@/styles/content-tabs.css";
 import "@/styles/custom-table.css";
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import "tailwindcss/tailwind.css";
-
-import { queryClient } from "../lib/wallet/wallet-config";
-import { QueryClientProvider } from "@tanstack/react-query";
 import { Inter } from "next/font/google";
 
 import { type AppProps } from "next/app";
@@ -25,7 +21,6 @@ export default function App({ Component, pageProps }: AppProps) {
     <AuthProvider>
       <UserContextProvider>
         <CommunityContextProvider>
-          <QueryClientProvider client={queryClient}>
             <div className={`${inter.className} h-screen flex flex-col`}>
               <DappHeader />
               <main>
@@ -45,7 +40,6 @@ export default function App({ Component, pageProps }: AppProps) {
                 </div>
               </main>
             </div>
-          </QueryClientProvider>
         </CommunityContextProvider>
       </UserContextProvider>
     </AuthProvider>

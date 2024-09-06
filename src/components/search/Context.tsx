@@ -11,9 +11,13 @@ const SearchContextProvider: React.FC<SearchContextProviderProps> = (
   props: SearchContextProviderProps
 ) => {
   const [searchedUserAddress, setSearchedUserAddress] = useState<string>("");
+
   const [searchedUserBadges, setSearchedUserBadges] = useState<
     SearchedUserBadge[]
-  >([]);
+  >();
+
+  const [searchedUserScore, setSearchedUserScore] = useState<number>();
+
   return (
     <searchCtx.Provider
       value={{
@@ -21,6 +25,8 @@ const SearchContextProvider: React.FC<SearchContextProviderProps> = (
         setSearchedUserAddress,
         searchedUserBadges,
         setSearchedUserBadges,
+        searchedUserScore,
+        setSearchedUserScore,
       }}
     >
       {props.children}

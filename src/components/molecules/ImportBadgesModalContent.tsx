@@ -8,6 +8,7 @@ interface ImportBadgesModalContentProps {
     description: string;
     isImported: boolean | undefined;
     assetCode: string;
+    score: number;
   }[];
   title: string;
   icon?: ReactNode;
@@ -34,18 +35,23 @@ export const ImportBadgesModalContent = ({
             </span>
           </div>
           <PerfectScrollbar className="w-full max-h-[300px]">
-            {badges.map(({ description, isImported }, index) => (
+            {badges.map(({ description, isImported, score }, index) => (
               <div key={index}>
                 <hr className="border-whiteOpacity008 w-full px-0 mx-0 mt-2 mb-3" />
                 <div className="px-4 flex">
-                  <span
-                    className={cc([
-                      { "text-whiteOpacity05": isImported === undefined },
-                      "flex-1 text-sm",
-                    ])}
-                  >
-                    {description}
-                  </span>
+                  <div className="flex-1 flex flex-col">
+                    <span
+                      className={cc([
+                        { "text-whiteOpacity05": isImported === undefined },
+                        "text-sm",
+                      ])}
+                    >
+                      {description}
+                    </span>
+                    <span className="text-sm text-whiteOpacity05">
+                      Points: {score}
+                    </span>
+                  </div>
                   {isImported !== undefined && (
                     <div>
                       <AttestationSymbol

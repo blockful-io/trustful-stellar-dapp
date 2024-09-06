@@ -1,17 +1,47 @@
-import React, { createContext, useContext, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { UserBadge, UserContext, UserContextProviderProps } from "./types";
 import { CommunityBadge } from "../community/types";
+import usersClient from "@/lib/http-clients/UsersClient";
+import { useAuthContext } from "../auth/Context";
+import toast from "react-hot-toast";
 
 const userCtx = createContext<UserContext | undefined>(undefined);
 
 const UserContextProvider: React.FC<UserContextProviderProps> = (
   props: UserContextProviderProps
 ) => {
-  const [userBadges, setUserBadges] = useState<UserBadge[]>([]);
+  const { userAddress } = useAuthContext();
+  const [userScore, setUserScore] = useState<number>();
   const [userBadgesImported, setUserBadgesImported] = useState<UserBadge[]>([]);
   const [userBadgesToImport, _setUserBadgesToImport] = useState<UserBadge[]>(
     []
   );
+  const fetchScore = useCallback(async () => {
+    if (!!userAddress) {
+      try {
+        const newScore = await usersClient.getScore(userAddress);
+        setUserScore(newScore);
+      } catch (error) {
+        console.error(error);
+        toast.error("Error getting user score", {
+          position: "top-right",
+          duration: 2000,
+        });
+        setUserScore(undefined);
+      }
+    }
+  }, [userAddress]);
+
+  useEffect(() => {
+    fetchScore();
+  }, [fetchScore]);
+
   const setUserBadgesToImport = (
     _userBadges: UserBadge[],
     _userBadgesImported: UserBadge[],
@@ -21,8 +51,10 @@ const UserContextProvider: React.FC<UserContextProviderProps> = (
       if (!assetCode) return false;
       const communityIncludesBadge = _communityBadges.some(
         ({ assetCode: communityBadgeAssetCode }) => {
-          communityBadgeAssetCode.toLocaleLowerCase() ===
-            assetCode.toLocaleLowerCase();
+          return (
+            communityBadgeAssetCode.toLocaleLowerCase() ===
+            assetCode.toLocaleLowerCase()
+          );
         }
       );
       const userBadgesImportedIncludesBadge = _userBadgesImported.some(
@@ -38,8 +70,8 @@ const UserContextProvider: React.FC<UserContextProviderProps> = (
   return (
     <userCtx.Provider
       value={{
-        userBadges,
-        setUserBadges,
+        userScore,
+        setUserScore,
         userBadgesImported,
         setUserBadgesImported,
         userBadgesToImport,

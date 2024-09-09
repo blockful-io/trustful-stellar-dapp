@@ -33,12 +33,12 @@ function VerifyReputationPage() {
   const [isLoading, setIsLoading] = useState(false);
   const onSearch = async (address: string) => {
     try {
-      setIsLoading(true);
       if (!isValidStellarAddress(address)) {
         setInputText("");
         alert("Invalid User Address");
         return false;
       }
+      setIsLoading(true);
       setSearchedUserAddress(address);
       const communityBadges = await communityClient.getCommunityBadges();
       const userTrustfulBadges = await usersClient.getBadgesTrustful(address);

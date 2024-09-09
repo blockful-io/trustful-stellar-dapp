@@ -30,11 +30,13 @@ export const WrapperWith2Cards: Story = {
   args: {
     children: [
       <AttestationBadge
+        key={1}
         icon={StarIcon}
         title="Stellar Quest"
         imported={false}
       />,
       <AttestationBadge
+        key={2}
         icon={CalculatorIcon}
         title="Soroban Quest"
         imported={true}
@@ -47,21 +49,25 @@ export const WrapperWith4Cards: Story = {
   args: {
     children: [
       <AttestationBadge
+        key={1}
         icon={StarIcon}
         title="Stellar Quest"
         imported={false}
       />,
       <AttestationBadge
+        key={2}
         icon={CalculatorIcon}
         title="Soroban Quest"
         imported={true}
       />,
       <AttestationBadge
+        key={3}
         icon={StarIcon}
         title="Stellar Quest"
         imported={false}
       />,
       <AttestationBadge
+        key={4}
         icon={CalculatorIcon}
         title="Soroban Quest"
         imported={true}
@@ -71,38 +77,44 @@ export const WrapperWith4Cards: Story = {
 };
 
 export const WrapperWith6Cards: Story = {
-    args: {
-      children: [
-        <AttestationBadge
-          icon={StarIcon}
-          title="Stellar Quest"
-          imported={false}
-        />,
-        <AttestationBadge
-          icon={CalculatorIcon}
-          title="Soroban Quest"
-          imported={true}
-        />,
-        <AttestationBadge
-          icon={StarIcon}
-          title="Stellar Quest"
-          imported={false}
-        />,
-        <AttestationBadge
-          icon={CalculatorIcon}
-          title="Soroban Quest"
-          imported={true}
-        />,
-        <AttestationBadge
+  args: {
+    children: [
+      <AttestationBadge
+        key={1}
         icon={StarIcon}
         title="Stellar Quest"
         imported={false}
       />,
       <AttestationBadge
+        key={2}
         icon={CalculatorIcon}
         title="Soroban Quest"
         imported={true}
       />,
-      ],
-    },
-  };
+      <AttestationBadge
+        key={3}
+        icon={StarIcon}
+        title="Stellar Quest"
+        imported={false}
+      />,
+      <AttestationBadge
+        key={4}
+        icon={CalculatorIcon}
+        title="Soroban Quest"
+        imported={true}
+      />,
+      <AttestationBadge
+        key={5}
+        icon={StarIcon}
+        title="Stellar Quest"
+        imported={false}
+      />,
+      <AttestationBadge
+        key={6}
+        icon={CalculatorIcon}
+        title="Soroban Quest"
+        imported={true}
+      />,
+    ],
+  },
+};

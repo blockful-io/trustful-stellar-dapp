@@ -50,8 +50,8 @@ export const ProfileBoxWithNoUser: Story = {
               onButtonClick={(currentValue) => {
                 alert("onButtonClick: " + currentValue);
               }}
-              input={value}
-              onChangeInput={setValue}
+              inputText={value}
+              onChangeInputText={setValue}
             />
           }
         />
@@ -85,8 +85,8 @@ export const ProfileBoxWithUser: Story = {
               onButtonClick={(currentValue) => {
                 alert("onButtonClick: " + currentValue);
               }}
-              input={value}
-              onChangeInput={setValue}
+              inputText={value}
+              onChangeInputText={setValue}
             />
           }
         />

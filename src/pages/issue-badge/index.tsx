@@ -129,16 +129,10 @@ export default function IssueBadgePage() {
           "Action request was rejected by the user."
         )
       ) {
-        toast.error("Transaction Rejected", {
-          position: "top-right",
-          duration: 2000,
-        });
+        toast.error("Transaction Rejected by the user");
         return;
       } else if (!!(error as Error)?.message) {
-        toast.error((error as Error)?.message, {
-          position: "top-right",
-          duration: 2000,
-        });
+        toast.error((error as Error)?.message);
         return;
       }
       throw error;

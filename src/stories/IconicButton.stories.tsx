@@ -1,6 +1,7 @@
 import { IconicButton, ArrowIcon } from "@/components/atoms";
 import type { Meta, StoryObj } from "@storybook/react";
 import { IconPosition } from "@/types/iconPosition";
+import tailwindConfig from "tailwind.config";
 
 const meta = {
   title: "TrustfulStellar/IconicButton",
@@ -11,19 +12,28 @@ const meta = {
   argTypes: {
     label: { control: "select" },
   },
-  args: { icon: <ArrowIcon />, label: "Label", onClick: () => {} },
+  args: {
+    icon: <ArrowIcon color={tailwindConfig.theme.extend.colors.brandBlack} />,
+    label: "Label",
+    onClick: () => {},
+    isLoading: false,
+  },
 } satisfies Meta<typeof IconicButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const ButtonWithIconInTheLeft: Story = {
-  args: { icon: <ArrowIcon />, label: "My custom label", onClick: () => {} },
+  args: {
+    icon: <ArrowIcon color={tailwindConfig.theme.extend.colors.brandBlack} />,
+    label: "My custom label",
+    onClick: () => {},
+  },
 };
 
 export const ButtonWithIconInTheRight: Story = {
   args: {
-    icon: <ArrowIcon />,
+    icon: <ArrowIcon color={tailwindConfig.theme.extend.colors.brandBlack} />,
     label: "My custom label",
     onClick: () => {},
     iconPosition: IconPosition.RIGHT,
@@ -32,7 +42,7 @@ export const ButtonWithIconInTheRight: Story = {
 
 export const ImportButtonExample: Story = {
   args: {
-    icon: <ArrowIcon />,
+    icon: <ArrowIcon color={tailwindConfig.theme.extend.colors.brandBlack} />,
     label: "Import",
     onClick: () => alert("Execute import action"),
   },
@@ -42,10 +52,19 @@ export const ReimportButtonExample: Story = {
   args: {
     icon: (
       <div className="transform rotate-180">
-        <ArrowIcon />
+        <ArrowIcon color={tailwindConfig.theme.extend.colors.brandBlack} />
       </div>
     ),
     label: "Re-import",
     onClick: () => alert("Execute re-import action"),
+  },
+};
+
+export const ButtonIsLoading: Story = {
+  args: {
+    icon: <ArrowIcon color={tailwindConfig.theme.extend.colors.brandBlack} />,
+    label: "My custom label",
+    onClick: () => {},
+    isLoading: true,
   },
 };

@@ -1,18 +1,17 @@
 import { useState, useRef, useEffect } from "react";
-import { Address } from "viem";
-import { EnsProfile } from "./index";
 import { DisconnectIcon, UserIcon } from "@/components/atoms";
-import { useDisconnect } from "wagmi";
+import { useAuthContext } from "@/components/auth/Context";
+import tailwindConfig from "tailwind.config";
+import cc from "classcat";
+import { getEllipsedAddress } from "@/lib/utils/getEllipsedAddress";
+import { clearLocalStorageUserAddress } from "@/lib/local-storage/auth";
+import { useRouter } from "next/router";
 
-interface UserDropdownProps {
-  address: Address;
-}
-
-export const UserDropdown = ({ address }: UserDropdownProps) => {
+export const UserDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const disconnect = useDisconnect();
-
+  const { setUserAddress, userAddress } = useAuthContext();
   const handleClickOutside = (event: MouseEvent) => {
     if (
       dropdownRef.current &&
@@ -20,6 +19,10 @@ export const UserDropdown = ({ address }: UserDropdownProps) => {
     ) {
       setIsOpen(false);
     }
+  };
+
+  const disconnect = () => {
+    setUserAddress("");
   };
 
   useEffect(() => {
@@ -36,16 +39,31 @@ export const UserDropdown = ({ address }: UserDropdownProps) => {
           setIsOpen(!isOpen);
         }}
       >
-
-    <div
-      className="border border-primary rounded-lg p-2 text-gray"
-    >
-      <EnsProfile address={address} />
-    </div>
+        <div
+          className={cc([
+            {
+              "text-brandWhite border bg-whiteOpacity008": !isOpen,
+              "text-brandBlack bg-brandGreen": isOpen,
+            },
+            "border-whiteOpacity008 rounded-lg p-2",
+          ])}
+        >
+          <div className="flex items-center justify-center gap-2">
+            <UserIcon
+              className="w-7"
+              color={
+                isOpen
+                  ? tailwindConfig.theme.extend.colors.brandBlack
+                  : tailwindConfig.theme.extend.colors.brandGreen
+              }
+            />
+            <h2>{getEllipsedAddress(userAddress || "")}</h2>
+          </div>
+        </div>
       </button>
 
       {isOpen && (
-        <div className="z-50 origin-top-right border-primary border absolute right-0 mt-2 w-[220px] rounded-md shadow-lg bg-grey02">
+        <div className="z-50 origin-top-right border-whiteOpacity008 border absolute right-0 mt-2 w-[15vw] rounded-md shadow-lg bg-brandBlack">
           <div
             role="menu"
             aria-orientation="vertical"
@@ -53,28 +71,32 @@ export const UserDropdown = ({ address }: UserDropdownProps) => {
           >
             <button
               onClick={() => {
-                disconnect.disconnect();
+                router.push({
+                  pathname: "/verify-reputation",
+                  query: { searchAddress: userAddress },
+                });
               }}
-              className="flex gap-2 items-center hover:bg-primary p-3 text-base text-whiteOpacity005 hover:bg-gray-100 w-full text-left transition-colors duration-300"
-              role="menuitem"
-            >
-              <DisconnectIcon />
-              <h2 className="text-gray">Disconnect</h2>
-            </button>
-
-            <button
-              disabled
-              className="flex justify-between items-center gap-2 cursor-not-allowed p-3 text-base text-whiteOpacity005 hover:bg-gray-100 w-full text-left transition-colors duration-300"
+              className="flex justify-between rounded-md items-center gap-2 cursor-pointer p-3 text-base hover:bg-whiteOpacity05 w-full text-left transition-colors duration-300"
               role="menuitem"
             >
               <div className="flex items-center justify-center gap-2">
-                <UserIcon />
-                <h2 className="text-whiteOpacity005">Profile</h2>
+                <UserIcon
+                  className="w-7"
+                  color={tailwindConfig.theme.extend.colors.brandGreen}
+                />
+                <h2>Profile</h2>
               </div>
-
-              <div className="py-1 px-2 text-xs rounded-full bg-whiteOpacity008 bg-opacity-10 font-medium">
-                COMING SOON
-              </div>
+            </button>
+            <button
+              onClick={disconnect}
+              className="flex gap-2 rounded-md cursor-pointer items-center p-3 text-base hover:bg-whiteOpacity05 w-full transition-colors duration-300"
+              role="menuitem"
+            >
+              <DisconnectIcon
+                color={tailwindConfig.theme.extend.colors.brandGreen}
+                className="w-6"
+              />
+              <h2>Disconnect</h2>
             </button>
           </div>
         </div>

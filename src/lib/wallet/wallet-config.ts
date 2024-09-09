@@ -22,25 +22,33 @@ if (!isTestnet && alchemyApiKey == undefined) {
   throw new Error("Missing API key for mainnet environment");
 }
 
-// Define the RPC URL for the blockchain in use
+/**
+ * Define the RPC URL for the blockchain in use
+ */
 export const rpcHttpUrl = `https://eth-${
   isTestnet ? "sepolia" : "mainnet"
 }.g.alchemy.com/v2/${isTestnet ? alchemyApiTestnetKey : alchemyApiKey}`;
 
-// Create a public client for fetching data from the blockchain
+/**
+ * Create a public client for fetching data from the blockchain
+ */
 export const publicClient = createPublicClient({
   chain: isTestnet ? sepoliaWithEns : mainnetWithEns,
   batch: { multicall: true },
   transport: http(),
 });
 
-// Create a wallet client for sending transactions to the blockchain
+/**
+ * Create a wallet client for sending transactions to the blockchain
+ */
 export const walletClient = createWalletClient({
   chain: isTestnet ? sepolia : mainnet,
   transport: http(rpcHttpUrl),
 });
 
-// Create a app config for Wagmi
+/**
+ * Create a app config for Wagmi
+ */
 const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID;
 if (!projectId) throw new Error("Missing WalletConnect project ID");
 const appName = "Trustful Stellar dApp";
@@ -67,12 +75,16 @@ const wagmiConfig = createConfig({
   ssr: false,
 });
 
-// Create a app config for Siwe (Wallet Authentication)
+/**
+ * Create a app config for Siwe (Wallet Authentication)
+ */
 const getSiweMessageOptions = () => ({
   statement: "Connect to Trustful Stellar dApp",
 });
 
-// Create the query client for React Query
+/**
+ * Create the query client for React Query
+ */
 const queryClient = new QueryClient();
 
 export { wagmiConfig, getSiweMessageOptions, queryClient };

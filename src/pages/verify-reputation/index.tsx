@@ -94,6 +94,7 @@ function VerifyReputationPage() {
             setInputText("");
             setSearchedUserAddress("");
             setSearchedUserBadges([]);
+            setSearchedUserScore(0);
           }}
           isClearButtonVisible={!!searchedUserAddress}
           searchBar={

@@ -1,5 +1,5 @@
 import { SearchIcon } from "@/components/atoms/icons/SearchIcon";
-import { SearchTableEmptyScreen } from "@/components/atoms/TableEmptyScreen";
+import { TableEmptyScreen } from "@/components/atoms/TableEmptyScreen";
 import { SearchBar } from "@/components/search/SearchBar";
 import { CustomTable } from "@/components/organisms/CustomTable";
 import { getEllipsedAddress } from "@/lib/utils/getEllipsedAddress";
@@ -81,7 +81,17 @@ export const CustomTableWithCustomCells: Story = {
 
 export const CustomTableWithEmptyData: Story = {
   args: {
-    childrenForEmptyTable: <SearchTableEmptyScreen />,
+    childrenForEmptyTable: (
+      <TableEmptyScreen
+        icon={
+          <SearchIcon
+            color={tailwindConfig.theme.extend.colors.whiteOpacity05}
+          />
+        }
+        title="Search to start"
+        description="Check a user's reputation by searching for their address"
+      />
+    ),
     headers: ["badgeName", "issuer"],
     data: [],
   },

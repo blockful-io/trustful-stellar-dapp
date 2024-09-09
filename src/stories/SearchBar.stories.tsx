@@ -22,14 +22,14 @@ type Story = StoryObj<typeof meta>;
 export const SearchBarWithNoInput: Story = {
   args: {
     placeholder: "Paste the address...",
-    input: "",
-    onChangeInput: () => {},
+    inputText: "",
+    onChangeInputText: () => {},
   },
   render: function (args) {
     const [value, setValue] = useState("");
     return (
       <div className="w-[300px]">
-        <SearchBar {...args} input={value} onChangeInput={setValue} />
+        <SearchBar {...args} inputText={value} onChangeInputText={setValue} />
       </div>
     );
   },

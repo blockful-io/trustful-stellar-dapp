@@ -22,7 +22,7 @@ export const CustomTable = <T extends Record<string, any>>({
         <tr>
           {headers.map((header) => {
             return (
-              <th className="text-left py-4 px-7">
+              <th key={header} className="text-left py-4 px-7">
                 <span className="text-whiteOpacity05 text-sm font-light">
                   {camelCaseToUpperCaseWords(header)}
                 </span>
@@ -34,12 +34,14 @@ export const CustomTable = <T extends Record<string, any>>({
 
       <tbody className="w-full">
         {hasRowsToDisplay ? (
-          data.map((row) => {
+          data.map((row, index) => {
             return (
-              <tr>
+              <tr key={index}>
                 {headers.map((header) => {
                   return (
-                    <td className="px-7 py-4">{row[header] as ReactNode}</td>
+                    <td key={header} className="px-7 py-4">
+                      {row[header] as ReactNode}
+                    </td>
                   );
                 })}
               </tr>

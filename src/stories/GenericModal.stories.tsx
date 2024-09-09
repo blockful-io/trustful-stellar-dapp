@@ -30,7 +30,12 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const OpenedModal: Story = {};
+export const OpenedModal: Story = {
+  args: {
+    children: <></>,
+    isAsync: false,
+  },
+};
 
 export const ModalWithContent: Story = {
   args: {
@@ -39,42 +44,49 @@ export const ModalWithContent: Story = {
         <p className="p-8">Any content wanted</p>
       </div>
     ),
+    isAsync: false,
   },
 };
 
 export const ModalWithoutTitle: Story = {
   args: {
     title: "",
+    isAsync: false,
   },
 };
 
 export const ModalWithCustomTitle: Story = {
   args: {
     title: "My custom title",
+    isAsync: false,
   },
 };
 
 export const ModalWithCustomActionOnClose: Story = {
   args: {
     onClose: () => alert("Close modal action executed"),
+    isAsync: false,
   },
 };
 
 export const ModalWithCustomActionOnCtaClick: Story = {
   args: {
     onButtonClick: () => new Promise((res, rej) => alert("Did something")),
+    isAsync: false,
   },
 };
 
 export const ModalWithCustomCtaLabel: Story = {
   args: {
     buttonLabel: "My custom label",
+    isAsync: false,
   },
 };
 
 export const ClosedModal: Story = {
   args: {
     isOpen: false,
+    isAsync: false,
   },
 };
 
@@ -97,6 +109,7 @@ export const ConnectWalletModal: Story = {
         </div>
       </div>
     ),
+    isAsync: false,
   },
 };
 
@@ -108,16 +121,47 @@ export const ImportBadgesModal: Story = {
     children: (
       <ImportBadgesModalContent
         badges={[
-          { description: "L1: Payment Operations", isImported: true },
-          { description: "L2: Configuration Operations", isImported: true },
-          { description: "L3: Advanced Operations", isImported: false },
-          { description: "Side Quest 1", isImported: true },
-          { description: "Side Quest 2", isImported: false },
-          { description: "Side Quest 3", isImported: false },
+          {
+            description: "L1: Payment Operations",
+            isImported: true,
+            assetCode: "A",
+            score: 10,
+          },
+          {
+            description: "L2: Configuration Operations",
+            isImported: true,
+            assetCode: "A",
+            score: 10,
+          },
+          {
+            description: "L3: Advanced Operations",
+            isImported: false,
+            assetCode: "A",
+            score: 10,
+          },
+          {
+            description: "Side Quest 1",
+            isImported: true,
+            assetCode: "A",
+            score: 10,
+          },
+          {
+            description: "Side Quest 2",
+            isImported: false,
+            assetCode: "A",
+            score: 10,
+          },
+          {
+            description: "Side Quest 3",
+            isImported: false,
+            assetCode: "A",
+            score: 10,
+          },
         ]}
         title="Stellar Quest"
         icon={<StarIcon></StarIcon>}
       />
     ),
+    isAsync: false,
   },
 };

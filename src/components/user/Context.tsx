@@ -10,6 +10,7 @@ import { CommunityBadge } from "../community/types";
 import usersClient from "@/lib/http-clients/UsersClient";
 import { useAuthContext } from "../auth/Context";
 import toast from "react-hot-toast";
+import { BLOCKFUL_QUEST_NAME } from "@/lib/constants";
 
 const userCtx = createContext<UserContext | undefined>(undefined);
 
@@ -49,10 +50,10 @@ const UserContextProvider: React.FC<UserContextProviderProps> = (
     _userBadgesImported: UserBadge[],
     _communityBadges: CommunityBadge[]
   ) => {
-    // All blockful badges are opened to import, 
+    // All blockful badges are opened to import,
     // so we create this array to consider all blockfulBadges as badges to be imported..
     const blockfulBadges: UserBadge[] = _communityBadges
-      .filter(({ questName }) => questName === "Blockful-Badges")
+      .filter(({ questName }) => questName === BLOCKFUL_QUEST_NAME)
       .map((communityBadge) => ({
         balance: "1",
         assetType: "credit_alphanum12",

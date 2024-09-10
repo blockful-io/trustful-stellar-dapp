@@ -68,6 +68,7 @@ export const sendSignedTransaction = async (
       return res.hash;
     }
   } catch (error) {
+    console.error(error);
     if (error === undefined) {
       throw new Error("Undefined Error");
     } else if (

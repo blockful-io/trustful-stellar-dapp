@@ -1,0 +1,1 @@
+export const BLOCKFUL_QUEST_NAME = "Blockful-Badges"

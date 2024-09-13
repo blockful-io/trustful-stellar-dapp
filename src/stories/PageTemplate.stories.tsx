@@ -19,7 +19,7 @@ export const PageTemplateWithNoContentTabs: Story = {
   args: {
     title: "Page Template With No ContentTabs",
     className: "",
-    children: <div className="text-left p-2 bg-whiteOpacity05 h-full">Hey! This is a Children of Page Template</div>
+    children: <div className="text-left p-2 pl-12 bg-whiteOpacity05 h-full w-screen text-brandBlack">Hey! This is a Children of Page Template</div>
   },
 };
 
@@ -30,7 +30,7 @@ export const PageTemplateWithContentTabs: Story = {
       children: <ContentTabs tabs={{
         "Import": {
           content: (
-            <div className="flex w-full h-full min-h-[300px] justify-center items-center">
+            <div className="flex w-full h-full min-h-[300px] justify-center items-center bg-green-500 text-brandBlack">
               Hey
             </div>
           ),
@@ -38,7 +38,7 @@ export const PageTemplateWithContentTabs: Story = {
         },
         "Create new": {
           content: (
-            <div className="flex w-full h-full min-h-[300px] justify-center items-center">
+            <div className="flex w-full h-full min-h-[300px] justify-center items-center bg-gray-800">
               Hey 2
             </div>
           ),

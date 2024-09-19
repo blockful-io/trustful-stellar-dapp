@@ -9,7 +9,7 @@ import cc from "classcat";
 import { UserDropdown } from "../molecules";
 import { isTestnet } from "@/lib/wallet/chains";
 import { setLocalStorageUserAddress } from "@/lib/local-storage/auth";
-import { isFundedStellarWallet } from "@/lib/stellar/isFundedStellarWallet";
+import { checkIfWalletIsInitialized } from "@/lib/stellar/isFundedStellarWallet";
 import toast from "react-hot-toast";
 
 interface ConnectWalletProps {
@@ -35,17 +35,17 @@ export const ConnectStellarWallet = ({
         customClassNames,
       ])}
       onClick={async (e: any) => {
-        kit.setWallet(ALBEDO_ID);
-        const { address } = await kit.getAddress();
-        const isFunded = await isFundedStellarWallet(address);
-        if (!isFunded) {
+        try {
+          kit.setWallet(ALBEDO_ID);
+          const { address } = await kit.getAddress();
+          await checkIfWalletIsInitialized(address);
+          setUserAddress(address);
+        } catch (error) {
           toast.error(
-            "Can't find your wallet registry, make sure you're trying to connect a funded wallet"
+            "Can't find your wallet registry, make sure you're trying to connect an initialized(funded) wallet"
           );
           setUserAddress("");
-          return;
         }
-        setUserAddress(address);
       }}
     >
       Connect

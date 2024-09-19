@@ -14,8 +14,9 @@ export type CommunityBadge = {
   questName: string;
   assetCode: string;
   score: number;
-  issuer: string;
+  issuer: string[];
   description: string;
+  title: string;
 };
 
 export type CommunityQuests = {

@@ -30,5 +30,5 @@ export type UserBadge = {
   isClawbackEnabled?: boolean;
   assetType: string;
   assetCode?: string;
-  assetIssuer?: string;
+  assetIssuer?: string[];
 };

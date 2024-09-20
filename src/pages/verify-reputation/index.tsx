@@ -59,7 +59,7 @@ function VerifyReputationPage() {
             </div>
           </div>
         ),
-        issuer: <IssuerTableCell issuerAddress={badge.issuer} />,
+        issuer: <IssuerTableCell issuerAddress={badge.issuer[0]} />,
       }));
       setSearchedUserBadges(searchedUserBadges);
       const userScore = await usersClient.getScore(address);

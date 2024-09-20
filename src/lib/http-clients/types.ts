@@ -19,13 +19,14 @@ export type UserBadgeFromApi = {
   is_clawback_enabled?: boolean;
   asset_type: string;
   asset_code?: string;
-  asset_issuer?: string;
+  asset_issuer?: string[];
 };
 
 export type CommunityBadgeFromApi = {
   score: number;
-  issuer: string;
+  issuer: string[];
   description: string;
+  title: string;
 };
 
 export type BadgesFromBadgeSetResponse = {

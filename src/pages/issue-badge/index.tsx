@@ -144,7 +144,12 @@ export default function IssueBadgePage() {
       return [];
     }
     const questBadges = communityQuests[questName]?.map(
-      ({ description, assetCode, score }) => ({ description, assetCode, score })
+      ({ title, description, assetCode, score }) => ({
+        title,
+        description,
+        assetCode,
+        score,
+      })
     );
     const questBadgesWithIsImported = questBadges.map((questBadge) => {
       const isImported = userBadgesImported

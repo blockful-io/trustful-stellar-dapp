@@ -5,6 +5,7 @@ import cc from "classcat";
 
 interface ImportBadgesModalContentProps {
   badges: {
+    title: string;
     description: string;
     isImported: boolean | undefined;
     assetCode: string;
@@ -35,7 +36,7 @@ export const ImportBadgesModalContent = ({
             </span>
           </div>
           <PerfectScrollbar className="w-full max-h-[300px]">
-            {badges.map(({ description, isImported, score }, index) => (
+            {badges.map(({ title, isImported, score }, index) => (
               <div key={index}>
                 <hr className="border-whiteOpacity008 w-full px-0 mx-0 mt-2 mb-3" />
                 <div className="px-4 flex">
@@ -46,7 +47,7 @@ export const ImportBadgesModalContent = ({
                         "text-sm",
                       ])}
                     >
-                      {description}
+                      {title}
                     </span>
                     <span className="text-sm text-whiteOpacity05">
                       Points: {score}

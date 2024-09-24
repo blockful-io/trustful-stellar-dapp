@@ -178,7 +178,7 @@ export default function IssueBadgePage() {
             content: (
               <CardWrapper>
                 {Object.keys(communityQuests).map((questName) => {
-                  //Hiding the Legacy Stellar Quests if the User doesn't have any badge to import(a.k.a. questIsFullyImport(questName)===undefined)
+                  // Hiding the Legacy Stellar Quests if the User doesn't have any badge to import(a.k.a. questIsFullyImport(questName)===undefined)
                   if (questName === "Legacy-Stellar-Quests") {
                     if (questIsFullyImported(questName) === undefined) {
                       return;

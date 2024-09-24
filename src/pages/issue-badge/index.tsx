@@ -25,6 +25,7 @@ import { ALBEDO_ID } from "@creit.tech/stellar-wallets-kit";
 import assetClient from "@/lib/http-clients/AssetClient";
 import toast from "react-hot-toast";
 import ActivityIndicatorModal from "@/components/molecules/ActivityIndicatorModal";
+import { LEGACY_STELLAR_QUEST_NAME } from "@/lib/constants";
 
 export default function IssueBadgePage() {
   const { userAddress, setUserAddress } = useAuthContext();
@@ -179,7 +180,7 @@ export default function IssueBadgePage() {
               <CardWrapper>
                 {Object.keys(communityQuests).map((questName) => {
                   // Hiding the Legacy Stellar Quests if the User doesn't have any badge to import(a.k.a. questIsFullyImport(questName)===undefined)
-                  if (questName === "Legacy-Stellar-Quests") {
+                  if (questName === LEGACY_STELLAR_QUEST_NAME) {
                     if (questIsFullyImported(questName) === undefined) {
                       return;
                     }

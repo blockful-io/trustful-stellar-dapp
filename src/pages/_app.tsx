@@ -4,6 +4,7 @@ import "@/styles/content-tabs.css";
 import "@/styles/custom-table.css";
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import "tailwindcss/tailwind.css";
+import 'react-tooltip/dist/react-tooltip.css'
 import { Inter } from "next/font/google";
 
 import { type AppProps } from "next/app";
@@ -13,6 +14,7 @@ import { DappHeader } from "@/components/organisms";
 import { AuthProvider } from "@/components/auth/Context";
 import { UserContextProvider } from "@/components/user/Context";
 import { CommunityContextProvider } from "@/components/community/Context";
+import { Tooltip } from "react-tooltip";
 
 const inter = Inter({ subsets: ["latin"] });
 

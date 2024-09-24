@@ -177,18 +177,26 @@ export default function IssueBadgePage() {
           Import: {
             content: (
               <CardWrapper>
-                {Object.keys(communityQuests).map((questName) => (
-                  <AttestationBadge
-                    key={questName}
-                    title={convertQuestNameToPresentation(questName)}
-                    icon={getQuestIcon(questName)}
-                    imported={questIsFullyImported(questName)}
-                    onClick={() => {
-                      setImportModalOpen(true);
-                      setSelectedQuestName(questName);
-                    }}
-                  ></AttestationBadge>
-                ))}
+                {Object.keys(communityQuests).map((questName) => {
+                  //Hiding the Legacy Stellar Quests if the User doesn't have any badge to import(a.k.a. questIsFullyImport(questName)===undefined)
+                  if (questName === "Legacy-Stellar-Quests") {
+                    if (questIsFullyImported(questName) === undefined) {
+                      return;
+                    }
+                  }
+                  return (
+                    <AttestationBadge
+                      key={questName}
+                      title={convertQuestNameToPresentation(questName)}
+                      icon={getQuestIcon(questName)}
+                      imported={questIsFullyImported(questName)}
+                      onClick={() => {
+                        setImportModalOpen(true);
+                        setSelectedQuestName(questName);
+                      }}
+                    ></AttestationBadge>
+                  );
+                })}
               </CardWrapper>
             ),
             tabNumber: 1,

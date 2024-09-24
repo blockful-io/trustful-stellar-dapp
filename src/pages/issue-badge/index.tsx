@@ -194,7 +194,7 @@ export default function IssueBadgePage() {
                         setImportModalOpen(true);
                         setSelectedQuestName(questName);
                       }}
-                    ></AttestationBadge>
+                    />
                   );
                 })}
               </CardWrapper>

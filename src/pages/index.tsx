@@ -12,53 +12,51 @@ const HomePage = () => {
   const router = useRouter();
   return (
     <div className="relative mx-auto h-full flex items-center justify-center bg-brandBlack z-[0]">
-      <ScrollBar>
-        <HomepageBackground />
-        <div className="h-[calc(100vh-72px)] w-[100vw]">
-          <div className="flex h-full w-full">
-            <div className="flex px-[5%] pt-[5%] pb-[2%] flex-col h-full w-full justify-between">
-              <div className="max-w-[400px]">
-                <span className="font-space-grotesk text-7xl">
-                  Online Reputation made easy
-                </span>
-              </div>
-              <div className="w-[564px] h-[39px]">
-                <BlockfulCredits />
-              </div>
+      <HomepageBackground />
+      <div className="h-[calc(100vh-72px)] w-screen">
+        <div className="flex h-full w-full">
+          <div className="flex px-[5%] pt-[5%] pb-[2%] flex-col h-full w-full justify-between">
+            <div className="max-w-[400px]">
+              <span className="font-space-grotesk text-7xl">
+                Online Reputation made easy
+              </span>
             </div>
-            <div className="pr-[5%] pt-[2%] pb-[2%] flex flex-col h-full w-full justify-around">
-              <CardLink
-                title="Issue Badge"
-                mainIcon={
-                  <BadgeIcon
-                    color={tailwindConfig.theme.extend.colors.brandGreen}
-                  />
-                }
-                actionIcon={
-                  <ArrowRightIcon
-                    color={tailwindConfig.theme.extend.colors.brandBlack}
-                  />
-                }
-                onClick={() => router.push("/issue-badge")}
-              />
-              <CardLink
-                title="Verify Reputation"
-                mainIcon={
-                  <VerifyReputationIcon
-                    color={tailwindConfig.theme.extend.colors.brandGreen}
-                  />
-                }
-                actionIcon={
-                  <ArrowRightIcon
-                    color={tailwindConfig.theme.extend.colors.brandBlack}
-                  />
-                }
-                onClick={() => router.push("/verify-reputation")}
-              />
+            <div className="w-[564px] h-[39px]">
+              <BlockfulCredits />
             </div>
           </div>
+          <div className="pr-[5%] pt-[2%] pb-[2%] flex flex-col h-full w-full justify-around">
+            <CardLink
+              title="Issue Badge"
+              mainIcon={
+                <BadgeIcon
+                  color={tailwindConfig.theme.extend.colors.brandGreen}
+                />
+              }
+              actionIcon={
+                <ArrowRightIcon
+                  color={tailwindConfig.theme.extend.colors.brandBlack}
+                />
+              }
+              onClick={() => router.push("/issue-badge")}
+            />
+            <CardLink
+              title="Verify Reputation"
+              mainIcon={
+                <VerifyReputationIcon
+                  color={tailwindConfig.theme.extend.colors.brandGreen}
+                />
+              }
+              actionIcon={
+                <ArrowRightIcon
+                  color={tailwindConfig.theme.extend.colors.brandBlack}
+                />
+              }
+              onClick={() => router.push("/verify-reputation")}
+            />
+          </div>
         </div>
-      </ScrollBar>
+      </div>
     </div>
   );
 };

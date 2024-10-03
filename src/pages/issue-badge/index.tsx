@@ -172,7 +172,15 @@ export default function IssueBadgePage() {
   };
 
   return (
-    <PageTemplate className="" title={"Generate Attestation"}>
+    <PageTemplate
+      className=""
+      title={"Generate Attestation"}
+      tooltip={{
+        tooltipId: "generate-attestation-tip",
+        tooltipText:
+          "Import the available reputation badges. They are linked to a score that may be used in Stellar ecosystem dApps and communities in the future.",
+      }}
+    >
       <ContentTabs
         tabs={{
           Import: {

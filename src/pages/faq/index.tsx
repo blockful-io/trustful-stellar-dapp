@@ -15,7 +15,7 @@ export default function IssueBadgePage() {
           <span className="text-md pt-10">
             Trustful values effort and the track record of past contributions,
             providing a fair and transparent way to build, verify, and manage
-            reputation systems within communities. It's a customizable,
+            reputation systems within communities. It&apos;s a customizable,
             decentralized solution that integrates with the Stellar ecosystem,
             empowering users to prove their contributions over time.
           </span>

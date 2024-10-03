@@ -4,6 +4,7 @@ import { ConnectStellarWallet } from "../auth/ConnectStellarWallet";
 import { useUsersContext } from "../user/Context";
 import { useRouter } from "next/router";
 import cc from "classcat";
+import React from "react";
 
 export const DappHeader = () => {
   const { userScore } = useUsersContext();
@@ -40,7 +41,17 @@ export const DappHeader = () => {
             >
               <span>Verify Reputation</span>
             </div>
+            <div
+              className={cc([
+                { "tab-active": path.includes("faq") },
+                "tab p-2 px-4 items-center flex",
+              ])}
+              onClick={() => router.push("/faq")}
+            >
+              <span>FAQ</span>
+            </div>
           </div>
+          
         )}
       </div>
       <div className="flex flex-row">

@@ -5,6 +5,7 @@ import { ArrowRightIcon } from "@/components/atoms/icons/ArrowRightIcon";
 import { BadgeIcon } from "@/components/atoms/icons/BadgeIcon";
 import { VerifyReputationIcon } from "@/components/atoms/icons/VerifyReputationIcon";
 import { useRouter } from "next/router";
+import ScrollBar from "react-perfect-scrollbar";
 import tailwindConfig from "tailwind.config";
 
 const HomePage = () => {
@@ -12,7 +13,7 @@ const HomePage = () => {
   return (
     <div className="relative mx-auto h-full flex items-center justify-center bg-brandBlack z-[0]">
       <HomepageBackground />
-      <div className="h-[calc(100vh-72px)] w-[100vw]">
+      <div className="h-[calc(100vh-72px)] w-screen">
         <div className="flex h-full w-full">
           <div className="flex px-[5%] pt-[5%] pb-[2%] flex-col h-full w-full justify-between">
             <div className="max-w-[400px]">
@@ -37,7 +38,7 @@ const HomePage = () => {
                   color={tailwindConfig.theme.extend.colors.brandBlack}
                 />
               }
-              onClick={() => router.push('/issue-badge')}
+              onClick={() => router.push("/issue-badge")}
             />
             <CardLink
               title="Verify Reputation"
@@ -51,7 +52,7 @@ const HomePage = () => {
                   color={tailwindConfig.theme.extend.colors.brandBlack}
                 />
               }
-              onClick={() => router.push('/verify-reputation')}
+              onClick={() => router.push("/verify-reputation")}
             />
           </div>
         </div>

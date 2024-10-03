@@ -2,6 +2,9 @@ import { ReactNode } from "react";
 import { AttestationSymbol } from "../atoms/AttestationSymbol";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import cc from "classcat";
+import { Tooltip } from "react-tooltip";
+import { QuestCircleIcon } from "../atoms/icons/QuestionCircleIcon";
+import tailwindConfig from "tailwind.config";
 
 interface ImportBadgesModalContentProps {
   badges: {
@@ -36,7 +39,7 @@ export const ImportBadgesModalContent = ({
             </span>
           </div>
           <PerfectScrollbar className="w-full max-h-[300px]">
-            {badges.map(({ title, isImported, score }, index) => (
+            {badges.map(({ title, description, isImported, score }, index) => (
               <div key={index}>
                 <hr className="border-whiteOpacity008 w-full px-0 mx-0 mt-2 mb-3" />
                 <div className="px-4 flex">
@@ -44,10 +47,25 @@ export const ImportBadgesModalContent = ({
                     <span
                       className={cc([
                         { "text-whiteOpacity05": isImported === undefined },
-                        "text-sm",
+                        "text-sm flex",
                       ])}
                     >
-                      {title}
+                      {title}{" "}
+                      <div
+                        className={cc(["m-1 ml-2 w-3 h-3", { hidden: !description }])}
+                      >
+                        <a
+                          data-tooltip-id="badge-description-tooltip"
+                          data-tooltip-content={description}
+                        >
+                          <QuestCircleIcon
+                            color={
+                              tailwindConfig.theme.extend.colors.whiteOpacity05
+                            }
+                            className="w-full h-full"
+                          ></QuestCircleIcon>
+                        </a>
+                      </div>
                     </span>
                     <span className="text-sm text-whiteOpacity05">
                       Points: {score}
@@ -64,6 +82,7 @@ export const ImportBadgesModalContent = ({
               </div>
             ))}
           </PerfectScrollbar>
+          <Tooltip id="badge-description-tooltip" />
         </div>
       )}
     </div>

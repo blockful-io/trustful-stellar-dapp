@@ -25,6 +25,7 @@ import { ALBEDO_ID } from "@creit.tech/stellar-wallets-kit";
 import assetClient from "@/lib/http-clients/AssetClient";
 import toast from "react-hot-toast";
 import ActivityIndicatorModal from "@/components/molecules/ActivityIndicatorModal";
+import { LEGACY_STELLAR_QUEST_NAME } from "@/lib/constants";
 
 export default function IssueBadgePage() {
   const { userAddress, setUserAddress } = useAuthContext();
@@ -177,18 +178,26 @@ export default function IssueBadgePage() {
           Import: {
             content: (
               <CardWrapper>
-                {Object.keys(communityQuests).map((questName) => (
-                  <AttestationBadge
-                    key={questName}
-                    title={convertQuestNameToPresentation(questName)}
-                    icon={getQuestIcon(questName)}
-                    imported={questIsFullyImported(questName)}
-                    onClick={() => {
-                      setImportModalOpen(true);
-                      setSelectedQuestName(questName);
-                    }}
-                  ></AttestationBadge>
-                ))}
+                {Object.keys(communityQuests).map((questName) => {
+                  // Hiding the Legacy Stellar Quests if the User doesn't have any badge to import(a.k.a. questIsFullyImport(questName)===undefined)
+                  if (questName === LEGACY_STELLAR_QUEST_NAME) {
+                    if (questIsFullyImported(questName) === undefined) {
+                      return;
+                    }
+                  }
+                  return (
+                    <AttestationBadge
+                      key={questName}
+                      title={convertQuestNameToPresentation(questName)}
+                      icon={getQuestIcon(questName)}
+                      imported={questIsFullyImported(questName)}
+                      onClick={() => {
+                        setImportModalOpen(true);
+                        setSelectedQuestName(questName);
+                      }}
+                    />
+                  );
+                })}
               </CardWrapper>
             ),
             tabNumber: 1,

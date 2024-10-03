@@ -84,7 +84,10 @@ function VerifyReputationPage() {
     }
   }, [searchAddress]);
   return (
-    <PageTemplate className="h-full" title="Verify Reputation">
+    <PageTemplate className="h-full" title="Verify Reputation" tooltip={{
+      tooltipId: "verify-reputation-tip",
+      tooltipText: "Enter a Stellar public address to check the reputation and score associated with it."
+    }}>
       <div className="p-12 pt-2">
         <ProfileBox
           userAddress={searchedUserAddress}
